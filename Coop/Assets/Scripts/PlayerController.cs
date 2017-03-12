@@ -6,10 +6,13 @@ public class PlayerController : MonoBehaviour {
 
 	public float max_speed;
 	public float speed = 1;
+	public bool canAttack = true;
 
 	public GameObject projectile;
 
 	public GameObject attack;
+
+	public GameObject gameController;
 
 	Vector2 acceleration;
 
@@ -39,10 +42,27 @@ public class PlayerController : MonoBehaviour {
 		// TODO(frojo): Will probably want to change this to not let
 		// the player move while they're attacking
 
-		attack.GetComponent<AttackController>().DoAttack(movementVector.normalized);
-		//GameObject attack_obj = Instantiate (attack);
+		if (canAttack) {
+			StartCoroutine (AttackCooldownTimer());
+
+			attack.GetComponent<AttackController>().DoAttack(movementVector.normalized);
+			//GameObject attack_obj = Instantiate (attack);
+		}
 	}
 
+	IEnumerator AttackCooldownTimer() {
+		canAttack = false;
+		yield return new WaitForSeconds (2);
+		canAttack = true;
+	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.CompareTag("Enemy")) {
+			gameObject.SetActive (false);
+			gameController.GetComponent<GameController> ().EndGame ();
+
+		}
+	}
 
 //	void FireProjectile(Vector3 leftStickInput3d) {
 //		// TODO(frojo): Move all projectile code into projectile object

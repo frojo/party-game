@@ -80,6 +80,7 @@
 -define:UNITY_TEAM_LICENSE
 'Assets/Scripts/AttackController.cs'
 'Assets/Scripts/EnemyController.cs'
+'Assets/Scripts/GameController.cs'
 'Assets/Scripts/PlayerController.cs'
 'Assets/Scripts/ProjectileController.cs'
 -r:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.Runtime.Serialization.dll'

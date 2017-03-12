@@ -27,7 +27,6 @@ public class AttackController : MonoBehaviour {
 	}
 
 	public void DoAttack(Vector2 direction) {
-		print ("ATtack!");
 		transform.localPosition = direction * range;
 		gameObject.SetActive (true);
 
@@ -35,7 +34,6 @@ public class AttackController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		print ("hello I am the attack and i will destory you!");
 		Destroy (other.gameObject);
 	}
 }
