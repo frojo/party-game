@@ -19,3 +19,8 @@
 /Users/mojoz0/Documents/party-game/Coop/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/mojoz0/Documents/party-game/Coop/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/mojoz0/Documents/party-game/Coop/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/mojoz0/Documents/party-game/Coop/Temp/bin/Debug/UnityEngine.TestRunner.dll
+/Users/mojoz0/Documents/party-game/Coop/Temp/bin/Debug/nunit.framework.dll
+/Users/mojoz0/Documents/party-game/Coop/Temp/bin/Debug/UnityEngine.Timeline.dll
+/Users/mojoz0/Documents/party-game/Coop/Temp/bin/Debug/ExCSS.Unity.dll
+/Users/mojoz0/Documents/party-game/Coop/Temp/bin/Debug/Unity.Legacy.NRefactory.dll

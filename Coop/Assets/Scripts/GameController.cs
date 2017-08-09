@@ -7,10 +7,20 @@ public class GameController : MonoBehaviour {
 	public GameObject gameOverText;
 
 	public GameObject enemiesTest;
-	public GameObject player;
+	public GameObject playerPrefab;
+	public GameObject playerUIPrefab;
+
+	public GameObject canvas;
+
+	public CharacterConfig[] characters;
+
 
 	// Use this for initialization
 	void Start () {
+		canvas = GameObject.Find ("Canvas");
+
+		InitPlayer (1, "Tank");
+		InitPlayer (2, "Cleric");
 		
 	}
 	
@@ -23,21 +33,65 @@ public class GameController : MonoBehaviour {
 		
 	}
 
+	public void LinkPlayerWithUI(GameObject player, GameObject playerUI) {
+		PlayerController playerController = player.GetComponent<PlayerController>();
+		playerController.playerUI = playerUI.GetComponent<PlayerUIController>();
+	
+	}
+
+	CharacterConfig GetCharacterConfig(string character) {
+		switch (character) {
+		case "Tank":
+			return characters[0];
+		case "Cleric":
+			return characters[1];
+		default:
+			Debug.Log("Error!! Not a specified character: " + character);
+			return characters[0];
+		}
+	}
+
+	// TODO(frojo): This should be moved into the PlayerController script as "Init" or "Initialize"
+	public void InitPlayer(int playerNum, string character) {
+		// Instantiate and init player prefab
+		if (!playerPrefab) {
+			Debug.Log ("playerPrefab is null");
+		}
+		GameObject player = Instantiate(playerPrefab);
+
+		player.GetComponent<PlayerController> ().Init (playerNum, GetCharacterConfig (character));
+
+		// Instantiate UI player stuff
+		if (!playerUIPrefab) {
+			Debug.Log ("playerUIPrefab is null");
+		}
+		GameObject playerUI = Instantiate(playerUIPrefab);
+		playerUI.transform.SetParent (canvas.transform);
+		// ApplyConfig(playerUI, playerNum);
+
+		// Hook everything up (basically UI stuff is affected by actual player)
+		LinkPlayerWithUI(player, playerUI);
+
+	}
+
 	public void EndGame() {
 		gameOverText.SetActive (true);
 	}
 
 	void StartGame() {
-		// Deactivate GameOverText
-		GameObject playerObj = Instantiate (player);
+		if (!playerPrefab) {
+			Debug.Log ("playerPrefab is null");
+		}
+		GameObject playerObj = Instantiate (playerPrefab);
+		if (!enemiesTest) {
+			Debug.Log ("enemiesTest is null");
+		}
 		GameObject enemiesTestObj = Instantiate (enemiesTest);
 
-		//Transform[] newEnemies = enemiesTestObj.GetComponentsInChildren<Transform>();
 		foreach (Transform enemy in enemiesTestObj.transform) {
 			enemy.GetComponent<EnemyController> ().target = playerObj;
 		}
-		// Instantiate Enemies
-		// Instantiate Player
+
 	}
 
 	void ClearGame() {
@@ -48,9 +102,6 @@ public class GameController : MonoBehaviour {
 			Destroy (alivePlayer);
 		}
 
-		// TODO(frojo): Clean this up because it still doesn't
-		// clear the EnemiesTest container Gameobject
-		// Destroy all enemies
 		GameObject[] aliveEnemies =
 			GameObject.FindGameObjectsWithTag ("Enemy");
 		foreach (GameObject enemy in aliveEnemies) {
@@ -64,5 +115,8 @@ public class GameController : MonoBehaviour {
 		print ("Restart!!!");
 		ClearGame ();
 		StartGame();
+	}
+
+	void PrototypeSettings() {
 	}
 }
