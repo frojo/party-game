@@ -13,14 +13,15 @@ public class GameController : MonoBehaviour {
 	public GameObject canvas;
 
 	public CharacterConfig[] characters;
+	public PlayerConfig[] players;
 
+	void Awake() {
+		canvas = GameObject.Find ("Canvas");
+	}
 
 	// Use this for initialization
 	void Start () {
-		canvas = GameObject.Find ("Canvas");
-
-		InitPlayer (1, "Tank");
-		InitPlayer (2, "Cleric");
+		//canvas = GameObject.Find ("Canvas");
 		
 	}
 	
@@ -31,12 +32,6 @@ public class GameController : MonoBehaviour {
 			RestartGame ();
 		}
 		
-	}
-
-	public void LinkPlayerWithUI(GameObject player, GameObject playerUI) {
-		PlayerController playerController = player.GetComponent<PlayerController>();
-		playerController.playerUI = playerUI.GetComponent<PlayerUIController>();
-	
 	}
 
 	CharacterConfig GetCharacterConfig(string character) {
@@ -51,27 +46,29 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	PlayerConfig GetPlayerConfig(int playerNum) {
+		return players [playerNum - 1];
+	}
+
 	// TODO(frojo): This should be moved into the PlayerController script as "Init" or "Initialize"
 	public void InitPlayer(int playerNum, string character) {
+		Debug.Log ("Initing player " + playerNum);
 		// Instantiate and init player prefab
 		if (!playerPrefab) {
 			Debug.Log ("playerPrefab is null");
 		}
 		GameObject player = Instantiate(playerPrefab);
 
-		player.GetComponent<PlayerController> ().Init (playerNum, GetCharacterConfig (character));
-
 		// Instantiate UI player stuff
-		if (!playerUIPrefab) {
-			Debug.Log ("playerUIPrefab is null");
-		}
-		GameObject playerUI = Instantiate(playerUIPrefab);
-		playerUI.transform.SetParent (canvas.transform);
-		// ApplyConfig(playerUI, playerNum);
+//		if (!playerUIPrefab) {
+//			Debug.Log ("playerUIPrefab is null");
+//		}
+//		GameObject playerUI = Instantiate(playerUIPrefab);
+//		playerUI.transform.SetParent (canvas.transform);
 
-		// Hook everything up (basically UI stuff is affected by actual player)
-		LinkPlayerWithUI(player, playerUI);
-
+		player.GetComponent<PlayerController> ().Init (
+			GetPlayerConfig(playerNum),
+			GetCharacterConfig (character));
 	}
 
 	public void EndGame() {

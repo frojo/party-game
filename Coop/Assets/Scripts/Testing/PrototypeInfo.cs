@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PrototypeInfo : MonoBehaviour {
+	public GameController gameController;
 
-	public GameObject[] spawnPoints;
+	public GameObject[] playerSpawnPoints;
+
+	public GameObject enemyPrefab;
+	public GameObject[] enemySpawnPoints;
+	int nextEnemySPIndex = 0;
+	public CharacterConfig mook;
 
 	// Use this for initialization
 	void Start () {
+		gameController = GameObject.FindObjectOfType<GameController> ();
+
+		SpawnPlayers ();
+		SpawnEnemies ();
 		
 	}
 	
@@ -16,7 +26,28 @@ public class PrototypeInfo : MonoBehaviour {
 		
 	}
 
-	public Vector3 GetPrototypePosition(int playerNum) {
-		return spawnPoints [playerNum].transform.position;
+	void SpawnPlayers() {
+		gameController.InitPlayer (1, "Tank");
+		gameController.InitPlayer (2, "Cleric");
+
+	}
+
+	void SpawnEnemies() {
+		foreach (GameObject enemySP in enemySpawnPoints) {
+			GameObject enemy = Instantiate (enemyPrefab);
+			enemy.GetComponent<BeingController>().Init (mook);
+			enemy.transform.parent = transform;
+			enemy.transform.position = enemySP.transform.position;
+		}
+	}
+
+	public Vector3 GetEnemyPrototypeStartingPosition() {
+		int i = nextEnemySPIndex % enemySpawnPoints.Length;
+		return enemySpawnPoints [i].transform.position;
+	}
+
+
+	public Vector3 GetPlayerPrototypePosition(int playerNum) {
+		return playerSpawnPoints [playerNum-1].transform.position;
 	}
 }

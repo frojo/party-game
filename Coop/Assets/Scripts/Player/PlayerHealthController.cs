@@ -10,11 +10,18 @@ public class PlayerHealthController : MonoBehaviour {
 
 	int numHealthLeft;
 
+	public void Init(PlayerConfig player, CharacterConfig character) {
+		healthText.GetComponent<Text> ().color = player.color;
+
+		maxHealth = character.healthPoints;
+		numHealthLeft = maxHealth;
+		UpdateHealthText ();
+	}
 
 	// Use this for initialization
 	void Start () {
-		numHealthLeft = maxHealth;
-		UpdateHealthText ();
+//		numHealthLeft = maxHealth;
+//		UpdateHealthText ();
 	}
 	
 	// Update is called once per frame

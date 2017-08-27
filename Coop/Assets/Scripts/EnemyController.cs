@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour {
-
-	public float speed = 0.001f;
+public class EnemyController : BeingController {
 
 	public GameObject target;
 
@@ -19,11 +17,13 @@ public class EnemyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!target) {
-			FindTarget ();
+		if (!IsStunned ()) {
+			if (!target) {
+				FindTarget ();
+			}
+			transform.position = Vector2.MoveTowards (transform.position,
+				target.transform.position, speed * Time.deltaTime*4);
 		}
-		transform.position = Vector2.MoveTowards (transform.position,
-			target.transform.position, speed * Time.deltaTime);
 	}
 
 }

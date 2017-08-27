@@ -2,31 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : BeingController {
 
-	public static int NUM_ABILITIES = 4;
+	//public static int NUM_ABILITIES = 4;
 
-	public float speed = .2f;
+	//public float speed = .2f;
 	public int playerNumber;
+	public GameObject playerUIPrefab;
 
-	public int healthPoints;
-
-	// The direction that the player is currently "looking"
-	public Vector2 currentDirection;
-	public bool facingRight = true;
-
-	//public PlayerHealthController playerHealthUI;
-	public PlayerUIController playerUI;
-	public GameObject gameController;
+	private PlayerUIController ui;
 	private InputMap inputMap;
-
-	public Ability[] abilities;
-
-	Vector2 acceleration;
 
 	// Use this for initialization
 	void Start () {
-		gameController = GameObject.FindObjectOfType<GameController> ().gameObject;
+		gameController = GameObject.FindObjectOfType<GameController> ();
 		inputMap = new InputMap (playerNumber);
 	}
 
@@ -83,78 +72,42 @@ public class PlayerController : MonoBehaviour {
 //		canAttack = true;
 //	}
 
-	bool IsDead() {
-		return (healthPoints <= 0);
+	public override void TakeDamage(int damage) {
+		base.TakeDamage (damage);
+		Debug.Log ("Player " + playerNumber + " called base func and will now update health in ui");
+		ui.UpdateHealth (healthPoints);
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		if (other.CompareTag("Enemy")) {
-			//gameObject.SetActive (false);
-			healthPoints--;
-			playerUI.UpdateHealth(healthPoints);
-			if (IsDead()) {
-				gameObject.SetActive (false);
-				gameController.GetComponent<GameController> ().EndGame ();
-			}
-
-		}
-	}
-
-	void AttachAbility(int ability_num, CharacterConfig character) {
-		if (!character.abilities[ability_num]) {
-			Debug.Log ("null Ability prefab!");
-			return;
-		}
-		GameObject abilityObj = Instantiate (character.abilities[ability_num]);
-		abilityObj.transform.parent = transform;
-		Ability ability = abilityObj.GetComponent<Ability> ();
-		ability.Init ();
-		abilities [ability_num] = ability;
-	}
-
-	public void ApplyCharacterConfig(CharacterConfig character) {
-		healthPoints = character.healthPoints;
-		//transform.GetComponent<SpriteRenderer> ().color = character.color;
-		transform.localScale *= character.size;
-		speed *= character.speed;
-
-		// Attach abilities
-		for (int i = 0; i < NUM_ABILITIES; i++) {
-			AttachAbility (i, character);
-		}
-
-		// AttachAbility(ability, 
-	
-	}
-
-	void ApplyColor(int playerNum) {
-		switch (playerNum) {
-		case 1:
-			transform.GetComponent<SpriteRenderer>().color = new Color32 (66, 120, 0, 255);
-			break;
-		case 2:
-			transform.GetComponent<SpriteRenderer>().color = new Color32 (179, 55, 55, 255);
-			break;
-		default:
-			transform.GetComponent<SpriteRenderer>().color = new Color32 (69, 69, 69, 255);
-			break;
-		}
-	}
-
-//	void PrototypeStartingPosition(int playerNum) {
-//		switch
+//	void OnTriggerEnter2D(Collider2D other) {
+////		if (other.CompareTag("Enemy")) {
+////			//gameObject.SetActive (false);
+////			healthPoints--;
+////			ui.UpdateHealth(healthPoints);
+////			if (IsDead()) {
+////				gameObject.SetActive (false);
+////				gameController.GetComponent<GameController> ().EndGame ();
+////			}
+////
+////		}
 //	}
 
-	public void Init(int playerNum, CharacterConfig character) {
-		Debug.Log ("Initing player " + playerNum + " as a " + character.name);
-		gameObject.name = "Player " + playerNum + " (" + character.name + ")";
-		playerNumber = playerNum;
-		ApplyColor (playerNum);
-		ApplyCharacterConfig (character);
+	void ApplyPlayerConfig(PlayerConfig player) {
+		playerNumber = player.number;
+		transform.GetComponent<SpriteRenderer> ().color = player.color;
+	}
+
+	public void Init(PlayerConfig player, CharacterConfig character) {
+		gameObject.name = "Player " + player.number+ " (" + character.name + ")";
+
+		ApplyPlayerConfig (player);
+		ApplyCharacterConfig(character);
+
+		ui = Instantiate (playerUIPrefab).GetComponent<PlayerUIController> ();
+		ui.Init (player, character);
 
 		// PROTOTYPE TESTING
 		PrototypeInfo prototypeInfo = GameObject.FindObjectOfType<PrototypeInfo> ();
-		transform.position = prototypeInfo.GetPrototypePosition(playerNum);
+		transform.position = prototypeInfo.GetPlayerPrototypePosition(player.number);
 	}
 
 }

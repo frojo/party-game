@@ -6,43 +6,40 @@ public class BeingController : MonoBehaviour {
 
 	public static int NUM_ABILITIES = 4;
 
-	public float speed = .2f;
-	//public int playerNumber;
+	public float speed = 1f;
 
 	public int healthPoints;
 
-	// The direction that the player is currently "looking"
 	public Vector2 currentDirection;
 	public bool facingRight = true;
 
-	//public PlayerHealthController playerHealthUI;
-	//public PlayerUIController playerUI;
-	public GameObject gameController;
+	public int stunCounter = 0;
+
+	public GameController gameController;
 	private InputMap inputMap;
 
 	public Ability[] abilities;
 
-	Vector2 acceleration;
 
 	// Use this for initialization
 	void Start () {
-		gameController = GameObject.FindObjectOfType<GameController> ().gameObject;
+		gameController = GameObject.FindObjectOfType<GameController> ();
 		inputMap = new InputMap (0);
 	}
 
 	// Update is called once per frame
 	void Update () {
-		Vector2 leftStickInput = inputMap.Get2DStickInput ();
-//			new Vector2 (Input.GetAxis (inputMap.leftStickXAxis),
-//				Input.GetAxis (inputMap.leftStickYAxis));
+		if (!IsStunned()) {
+			Vector2 leftStickInput = inputMap.Get2DStickInput ();
 
-		UpdateCurrentDirection (leftStickInput);
-		UpdateAbilities (leftStickInput);
+			UpdateCurrentDirection (leftStickInput);
+			UpdateAbilities (leftStickInput);
 
-		// Do movement
-		Vector3 leftStickInput3d = 
-			new Vector3 (leftStickInput.x, leftStickInput.y, 0);
-		transform.position += leftStickInput3d * speed;
+			// Do movement
+			Vector3 leftStickInput3d = 
+				new Vector3 (leftStickInput.x, leftStickInput.y, 0);
+			transform.position += leftStickInput3d * speed;
+		}
 	}
 
 	void UpdateCurrentDirection(Vector2 stickInput) {
@@ -79,19 +76,47 @@ public class BeingController : MonoBehaviour {
 
 	}
 
-	//	IEnumerator AttackCooldownTimer() {
-	//		canAttack = false;
-	//		yield return new WaitForSeconds (2);
-	//		canAttack = true;
-	//	}
-
-	bool IsDead() {
+	public bool IsDead() {
 		return (healthPoints <= 0);
+	}
+
+	void Die() {
+		Destroy (gameObject);
+	}
+
+	public void KnockBack(Vector2 direction, float magnitude) {
+		transform.position += new Vector3(direction.x, direction.y, 0) * magnitude;
+	}
+
+	public void Stun(float duration) {
+		stunCounter++;
+		StartCoroutine (_RecoverFromStun (duration));
+	}
+
+	public bool IsStunned() {
+		return stunCounter > 0;
+	}
+
+	IEnumerator _RecoverFromStun(float duration) {
+		yield return new WaitForSeconds (duration);
+		stunCounter--;
+	}
+
+	public virtual void TakeDamage(int damage) {
+		Debug.Log(transform.name + " took " + damage + " damage");
+		healthPoints = healthPoints - damage;
+
+		if (healthPoints < 0) {
+			healthPoints = 0;
+		}
+		if (IsDead()) {
+			Die ();	
+		}
+		// if IsDead: die!
 	}
 
 	void AttachAbility(int ability_num, CharacterConfig character) {
 		if (!character.abilities[ability_num]) {
-			Debug.Log ("null Ability prefab!");
 			return;
 		}
 		GameObject abilityObj = Instantiate (character.abilities[ability_num]);
@@ -105,7 +130,7 @@ public class BeingController : MonoBehaviour {
 		healthPoints = character.healthPoints;
 		//transform.GetComponent<SpriteRenderer> ().color = character.color;
 		transform.localScale *= character.size;
-		speed *= character.speed;
+		speed = character.speed;
 
 		// Attach abilities
 		for (int i = 0; i < NUM_ABILITIES; i++) {
@@ -116,22 +141,11 @@ public class BeingController : MonoBehaviour {
 
 	}
 
-	//	void PrototypeStartingPosition(int playerNum) {
-	//		switch
-	//	}
-
-	public void OnTriggerEnter2D(Collider2D other) {
-		//
-	}
-
 	public void Init(CharacterConfig character) {
 		//Debug.Log ("Initing player " + playerNum + " as a " + character.name);
 		//gameObject.name = "Player " + playerNum + " (" + character.name + ")";
 		ApplyCharacterConfig (character);
 
-		// PROTOTYPE TESTING
-		PrototypeInfo prototypeInfo = GameObject.FindObjectOfType<PrototypeInfo> ();
-		//transform.position = prototypeInfo.GetPrototypePosition(playerNum);
 	}
 
 }

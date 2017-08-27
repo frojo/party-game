@@ -50,6 +50,7 @@ public class AttackController : Ability {
 		attack.transform.parent = characterTransform;
 
 		attack.transform.localPosition = Vector3.right * GetDirectionMultiplier(characterTransform) * range;
+		attack.GetComponent<Damageable>().Init (1, true, characterTransform.GetComponent<BeingController>().facingRight);
 		attack.SetActive (true);
 
 		StartCoroutine(_DoAttack());
