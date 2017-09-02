@@ -13,9 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 10
   size: 1
-  speed: 1.5
+  speed: 0.2
   abilities:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1230804157984594, guid: 2ef5137f9b3384010b81fcdd52561046, type: 2}
+  - {fileID: 1230804157984594, guid: 2ef5137f9b3384010b81fcdd52561046, type: 2}
+  - {fileID: 1230804157984594, guid: 2ef5137f9b3384010b81fcdd52561046, type: 2}
+  - {fileID: 1230804157984594, guid: 2ef5137f9b3384010b81fcdd52561046, type: 2}

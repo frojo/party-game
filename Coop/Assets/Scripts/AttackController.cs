@@ -47,6 +47,11 @@ public class AttackController : Ability {
 	}
 
 	public void DoAttack(Transform characterTransform) {
+		if (onCooldown) {
+			return;
+		}
+		StartCooldown ();
+
 		attack.transform.parent = characterTransform;
 
 		attack.transform.localPosition = Vector3.right * GetDirectionMultiplier(characterTransform) * range;

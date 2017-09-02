@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿	using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,5 +31,11 @@ public class MovingDamageable : Damageable {
 	IEnumerator Die(float duration) {
 		yield return new WaitForSeconds (duration);
 		Destroy (gameObject);
+	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.tag == "Enemy") {
+			Destroy (gameObject);
+		}
 	}
 }

@@ -37,14 +37,26 @@ public class InputMap {
 	public bool GetButton0KeyDown() {
 		return Input.GetKeyDown (Button0);
 	}
+	public bool GetButton0Key() {
+		return Input.GetKey (Button0);
+	}
 	public bool GetButton1KeyDown() {
 		return Input.GetKeyDown (Button1);
+	}
+	public bool GetButton1Key() {
+		return Input.GetKey (Button1);
 	}
 	public bool GetButton2KeyDown() {
 		return Input.GetKeyDown (Button2);
 	}
+	public bool GetButton2Key() {
+		return Input.GetKey (Button2);
+	}
 	public bool GetButton3KeyDown() {
 		return Input.GetKeyDown (Button3);
+	}
+	public bool GetButton3Key() {
+		return Input.GetKey (Button3);
 	}
 	public float GetStickXAxis() {
 		return Input.GetAxis (leftStickXAxis);

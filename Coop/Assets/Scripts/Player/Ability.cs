@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class Ability : MonoBehaviour {
 
+	protected float cooldownDuration = 1f;
+	protected bool onCooldown = false;
+
 	public abstract void Init ();
 
 	public abstract void HandleInput (
@@ -18,5 +21,16 @@ public abstract class Ability : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+		
+	public void StartCooldown() {
+		onCooldown = true;
+		StartCoroutine (CooldownTimer (cooldownDuration));
+
+	}
+		
+	IEnumerator CooldownTimer(float duration) {
+		yield return new WaitForSeconds (duration);
+		onCooldown = false;
 	}
 }

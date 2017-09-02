@@ -42,17 +42,17 @@ public class PlayerController : BeingController {
 	//void DoAbility(A
 	void UpdateAbilities(Vector2 leftStickInput) {
 		 
-		if (inputMap.GetButton0KeyDown()) {
+		if (inputMap.GetButton0Key()) {
 			Debug.Log("Bottom!");
 			if (abilities[0]) {
 				abilities[0].HandleInput (leftStickInput, transform);
 			}
 		}
-		if (inputMap.GetButton1KeyDown()) {
+		if (inputMap.GetButton1Key()) {
 			Debug.Log("Right!");
 
 		}
-		if (inputMap.GetButton2KeyDown()) {
+		if (inputMap.GetButton2Key()) {
 			// This is the attack button
 			if (abilities[2]) {
 				abilities[2].HandleInput (leftStickInput, transform);
@@ -60,7 +60,7 @@ public class PlayerController : BeingController {
 
 			Debug.Log("Left!");
 		}
-		if (inputMap.GetButton3KeyDown()) {
+		if (inputMap.GetButton3Key()) {
 			Debug.Log("Top!");
 		}
 

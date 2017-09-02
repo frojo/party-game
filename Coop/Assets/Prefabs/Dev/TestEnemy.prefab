@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  heavy: 0
+  knockback: 0
   goingRight: 1
 --- !u!114 &114352739146253082
 MonoBehaviour:

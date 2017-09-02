@@ -42,6 +42,10 @@ public class ProjectileAttack : Ability {
 //	}
 		
 	public void FireProjectile(Transform characterTransform) {
+		if (onCooldown) {
+			return;
+		}
+		StartCooldown ();
 
 		// Instantiate copy of projectile and set it to move in a certain direction
 

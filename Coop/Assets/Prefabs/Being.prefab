@@ -111,6 +111,7 @@ MonoBehaviour:
   healthPoints: 0
   currentDirection: {x: 0, y: 0}
   facingRight: 1
+  stunCounter: 0
   gameController: {fileID: 0}
   abilities: []
 --- !u!114 &114799799840846922
