@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ProjectileAttack : Ability {
 
-
 	public float speed = 1f;
 	public float duration = 5f;
+	public new float cooldownDuration = .5f;
 
 	public GameObject projectile;
 
@@ -16,6 +16,7 @@ public class ProjectileAttack : Ability {
 	public override void Init() {
 		projectile = transform.Find ("ProjectileObj").gameObject;
 		projectile.SetActive (false);
+		base.cooldownDuration = cooldownDuration;
 	}
 
 	public override void HandleInput (
@@ -43,8 +44,10 @@ public class ProjectileAttack : Ability {
 		
 	public void FireProjectile(Transform characterTransform) {
 		if (onCooldown) {
+			Debug.Log ("On cooldown!!");
 			return;
 		}
+		Debug.Log ("Starting cooldown");
 		StartCooldown ();
 
 		// Instantiate copy of projectile and set it to move in a certain direction

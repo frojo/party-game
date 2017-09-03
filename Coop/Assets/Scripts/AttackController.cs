@@ -9,9 +9,6 @@ public class AttackController : Ability {
 
 	public GameObject attack;
 
-
-	// TODO: We want this to cause knockback on enemies
-
 	public override void Init() {
 		attack = transform.Find ("AttackObj").gameObject;
 		attack.SetActive (false);
