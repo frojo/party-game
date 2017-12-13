@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerUIController : MonoBehaviour {
 
 	PlayerHealthController healthUI;
+	PlayerConfig playerConfig;
+	UIConfig uiConfig;
 
-	static int MAX_PLAYERS = 4;
-	static float MARGIN_FRACTION = .1f;
-	float marginLength;
-	float intervalLength;
+	int abilitiesAttached = 0;
+	static int MAX_ABILITIES = 4;
+	static float ABILITY_MARGIN_FRACTION = .1f;
+	float abilityIntervalLength;
 
 
 	public void UpdateHealth(int health) {
@@ -19,12 +21,11 @@ public class PlayerUIController : MonoBehaviour {
 		
 	void ApplyPlayerConfig(PlayerConfig player) {
 		// Set the position using the player number
-		float xPos = marginLength + (player.number-1) * intervalLength;
-		transform.localPosition = new Vector3 (xPos, 0, 0);
+		transform.localPosition = uiConfig.GetPlayerUIPosition (player.number);
 //		transform.position = 
+		playerConfig = player;
 
 		// Set the color using the player color
-	
 	}
 
 	void ApplyCharacterConfig(CharacterConfig character) {
@@ -34,14 +35,25 @@ public class PlayerUIController : MonoBehaviour {
 	void AttachToCanvas() {
 		GameObject canvas = GameObject.FindGameObjectWithTag ("Canvas");
 		transform.SetParent (canvas.transform);
+	}
 
-		float canvasWidth = canvas.GetComponent<RectTransform> ().sizeDelta.x;
-		marginLength = canvasWidth * MARGIN_FRACTION;
-		intervalLength = (canvasWidth - 2 * marginLength) / MAX_PLAYERS;
+	public void AttachAbilityUI(GameObject abilityUIObj) {
+		AbilityUI abilityUI = abilityUIObj.GetComponent<AbilityUI> ();
+
+		// Position it correctly
+		float width = gameObject.GetComponent<RectTransform>().sizeDelta.x;
+		abilityIntervalLength = width * (1 - 2 * ABILITY_MARGIN_FRACTION) / MAX_ABILITIES;
+		abilityUIObj.transform.position = transform.position + Vector3.right * abilityIntervalLength;
+
+		// Apply player config
+		abilityUI.SetColor(playerConfig.color);
+
+		abilitiesAttached++;
 	}
 
 	public void Init(PlayerConfig player, CharacterConfig character) {
 		gameObject.name = "Player " + player.number+ " UI";
+		uiConfig = GameObject.FindGameObjectWithTag ("Canvas").transform.Find ("UIConfig").GetComponent<UIConfig> ();
 
 		AttachToCanvas ();
 		ApplyPlayerConfig (player);

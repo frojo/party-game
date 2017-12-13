@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
 	public GameObject enemiesTest;
 	public GameObject playerPrefab;
 	public GameObject playerUIPrefab;
+	public GameObject abilityUIPrefab;
 
 	public GameObject canvas;
 

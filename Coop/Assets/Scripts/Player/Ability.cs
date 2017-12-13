@@ -7,12 +7,25 @@ public abstract class Ability : MonoBehaviour {
 	protected float cooldownDuration = 2f;
 	protected bool onCooldown = false;
 
+	protected AbilityUI ui;
+
+	//public abstract void Init ();
 	public abstract void Init ();
+
+	// TODO: Initialize the UI
+	public void Init(bool hasUI) {
+		// If this is an ability with a UI component, 
+		// create one and set abilityUI equal to it
+//		if (hasUI) {
+//			AbilityUI abilityUIPrefab = FindObjectOfType<GameController> ().abilityUIPrefab;
+//			ui = Instantiate (abilityUIPrefab).GetComponent<AbilityUIController> ();
+//			ui.Init (player);
+//		}
+	}
 
 	public abstract void HandleInput (
 		Vector2 stickInput,
-	Transform characterTransform);
-
+		Transform characterTransform);
 	// Use this for initialization
 	void Start () {
 		
@@ -23,10 +36,13 @@ public abstract class Ability : MonoBehaviour {
 		
 	}
 		
-	public void StartCooldown() {
+	public bool StartCooldown() {
+		if (onCooldown) {
+			return false;
+		}
 		onCooldown = true;
 		StartCoroutine (CooldownTimer (cooldownDuration));
-
+		return true;
 	}
 		
 	IEnumerator CooldownTimer(float duration) {

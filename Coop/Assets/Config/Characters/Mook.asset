@@ -9,13 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d01266ac3c45546959d537732cdb9b24, type: 3}
-  m_Name: Cleric
+  m_Name: Mook
   m_EditorClassIdentifier: 
   healthPoints: 10
   size: 1
-  speed: 0.2
+  speed: 1
   abilities:
-  - {fileID: 1230804157984594, guid: 2ef5137f9b3384010b81fcdd52561046, type: 2}
-  - {fileID: 1230804157984594, guid: 2ef5137f9b3384010b81fcdd52561046, type: 2}
-  - {fileID: 1230804157984594, guid: 2ef5137f9b3384010b81fcdd52561046, type: 2}
-  - {fileID: 1230804157984594, guid: 2ef5137f9b3384010b81fcdd52561046, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 1171361557226890, guid: 37a721d6963664f2a9557492e8626cb2, type: 2}
+  - {fileID: 0}

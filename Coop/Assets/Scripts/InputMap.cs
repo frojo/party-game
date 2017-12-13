@@ -50,13 +50,15 @@ public class InputMap {
 		return Input.GetKeyDown (Button2);
 	}
 	public bool GetButton2Key() {
-		return Input.GetKey (Button2);
+		// HACK
+		return Input.GetKey (Button2) || Input.GetKey (KeyCode.X);
 	}
 	public bool GetButton3KeyDown() {
 		return Input.GetKeyDown (Button3);
 	}
 	public bool GetButton3Key() {
-		return Input.GetKey (Button3);
+		// HACK
+		return Input.GetKey (Button3) || Input.GetKey(KeyCode.Z);
 	}
 	public float GetStickXAxis() {
 		return Input.GetAxis (leftStickXAxis);

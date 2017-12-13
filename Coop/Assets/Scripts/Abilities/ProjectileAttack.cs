@@ -14,6 +14,7 @@ public class ProjectileAttack : Ability {
 	// TODO: We want this to cause knockback on enemies
 
 	public override void Init() {
+		base.Init (false);
 		projectile = transform.Find ("ProjectileObj").gameObject;
 		projectile.SetActive (false);
 		base.cooldownDuration = cooldownDuration;
@@ -23,6 +24,9 @@ public class ProjectileAttack : Ability {
 		Vector2 leftStickInput, 
 		Transform characterTransform)
 	{
+		if (!StartCooldown ()) {
+			return;
+		}
 		FireProjectile (characterTransform);
 
 	}
@@ -43,12 +47,6 @@ public class ProjectileAttack : Ability {
 //	}
 		
 	public void FireProjectile(Transform characterTransform) {
-		if (onCooldown) {
-			Debug.Log ("On cooldown!!");
-			return;
-		}
-		Debug.Log ("Starting cooldown");
-		StartCooldown ();
 
 		// Instantiate copy of projectile and set it to move in a certain direction
 

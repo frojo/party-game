@@ -15,8 +15,7 @@ public class PlayerController : BeingController {
 
 	// Use this for initialization
 	void Start () {
-		gameController = GameObject.FindObjectOfType<GameController> ();
-		inputMap = new InputMap (playerNumber);
+		
 	}
 
 	// Update is called once per frame
@@ -65,12 +64,6 @@ public class PlayerController : BeingController {
 		}
 
 	}
-		
-//	IEnumerator AttackCooldownTimer() {
-//		canAttack = false;
-//		yield return new WaitForSeconds (2);
-//		canAttack = true;
-//	}
 
 	public override void TakeDamage(int damage) {
 		base.TakeDamage (damage);
@@ -78,32 +71,33 @@ public class PlayerController : BeingController {
 		ui.UpdateHealth (healthPoints);
 	}
 
-//	void OnTriggerEnter2D(Collider2D other) {
-////		if (other.CompareTag("Enemy")) {
-////			//gameObject.SetActive (false);
-////			healthPoints--;
-////			ui.UpdateHealth(healthPoints);
-////			if (IsDead()) {
-////				gameObject.SetActive (false);
-////				gameController.GetComponent<GameController> ().EndGame ();
-////			}
-////
-////		}
-//	}
 
 	void ApplyPlayerConfig(PlayerConfig player) {
 		playerNumber = player.number;
 		transform.GetComponent<SpriteRenderer> ().color = player.color;
 	}
 
+	void LinkAbilitiesWithUI() {
+		foreach (Ability ability in abilities) {
+			// Instantiate 
+			AbilityUI abilityUI = Instantiate(gameController.abilityUIPrefab).GetComponent<AbilityUI>();
+			abilityUI.Init (ui);
+		}
+	}
+
 	public void Init(PlayerConfig player, CharacterConfig character) {
 		gameObject.name = "Player " + player.number+ " (" + character.name + ")";
+
+		gameController = GameObject.FindObjectOfType<GameController> ();
+		inputMap = new InputMap (playerNumber);
 
 		ApplyPlayerConfig (player);
 		ApplyCharacterConfig(character);
 
 		ui = Instantiate (playerUIPrefab).GetComponent<PlayerUIController> ();
 		ui.Init (player, character);
+
+		LinkAbilitiesWithUI ();
 
 		// PROTOTYPE TESTING
 		PrototypeInfo prototypeInfo = GameObject.FindObjectOfType<PrototypeInfo> ();

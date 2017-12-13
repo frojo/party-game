@@ -15,11 +15,10 @@ public class BeingController : MonoBehaviour {
 
 	public int stunCounter = 0;
 
-	public GameController gameController;
+	protected GameController gameController;
 	private InputMap inputMap;
 
 	public Ability[] abilities;
-
 
 	// Use this for initialization
 	void Start () {
@@ -112,7 +111,6 @@ public class BeingController : MonoBehaviour {
 		if (IsDead()) {
 			Die ();	
 		}
-		// if IsDead: die!
 	}
 
 	void AttachAbility(int ability_num, CharacterConfig character) {
@@ -128,7 +126,6 @@ public class BeingController : MonoBehaviour {
 
 	public void ApplyCharacterConfig(CharacterConfig character) {
 		healthPoints = character.healthPoints;
-		//transform.GetComponent<SpriteRenderer> ().color = character.color;
 		transform.localScale *= character.size;
 		speed = character.speed;
 
