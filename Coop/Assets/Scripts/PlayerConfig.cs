@@ -7,6 +7,4 @@ public class PlayerConfig : ScriptableObject {
 
 	public int number = 0;
 	public Color32 color = new Color32(69, 69, 69, 255);
-
-	public Vector2 UIPosition = new Vector2(69, 69);
 }

@@ -7,11 +7,13 @@ public class PlayerController : BeingController {
 	//public static int NUM_ABILITIES = 4;
 
 	//public float speed = .2f;
-	public int playerNumber;
+	// public int playerNumber;
 	public GameObject playerUIPrefab;
 
 	private PlayerUIController ui;
 	private InputMap inputMap;
+    private PlayerConfig playerConfig;
+
 
 	// Use this for initialization
 	void Start () {
@@ -33,6 +35,7 @@ public class PlayerController : BeingController {
 
 	void UpdateCurrentDirection(Vector2 stickInput) {
 		if (stickInput != Vector2.zero) {
+
 			currentDirection = stickInput.normalized;
 		}
 		facingRight = (currentDirection.x >= 0);
@@ -67,13 +70,13 @@ public class PlayerController : BeingController {
 
 	public override void TakeDamage(int damage) {
 		base.TakeDamage (damage);
-		Debug.Log ("Player " + playerNumber + " called base func and will now update health in ui");
+		Debug.Log ("Player " + playerConfig.number + " called base func and will now update health in ui");
 		ui.UpdateHealth (healthPoints);
 	}
 
 
 	void ApplyPlayerConfig(PlayerConfig player) {
-		playerNumber = player.number;
+        playerConfig = player;
 		transform.GetComponent<SpriteRenderer> ().color = player.color;
 	}
 
@@ -89,7 +92,7 @@ public class PlayerController : BeingController {
 		gameObject.name = "Player " + player.number+ " (" + character.name + ")";
 
 		gameController = GameObject.FindObjectOfType<GameController> ();
-		inputMap = new InputMap (playerNumber);
+		inputMap = new InputMap (player.number);
 
 		ApplyPlayerConfig (player);
 		ApplyCharacterConfig(character);

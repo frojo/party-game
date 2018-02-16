@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#define INTERACTIVE_UI_MODE
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -72,6 +74,9 @@ public class PlayerUIController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+#if INTERACTIVE_UI_MODE
+		transform.localPosition = uiConfig.GetPlayerUIPosition (playerConfig.number);
+#endif
+
+    }
 }

@@ -1,14 +1,15 @@
-﻿#define JOYCON_MODE
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // OPTI: This could be a big source of opti if you can make the
 // input routing stuff happen at compile time as much as possible.
 // Maybe you instantiate 8 players at startup, and only show those
-// that people want to play
+// that people want to pl
 public class InputMap {
+
+    bool JOYCON_MODE = true;
+    bool WINDOWS = true;
 
 	// E.g. 1 for player 1, 2 for player 2 etc.
 	public int playerNum;
@@ -79,15 +80,24 @@ public class InputMap {
 		
 
 	void RouteAxes(int playerNum) {
+        Debug.Log("Routint Axes for player " + playerNum);
 		switch (playerNum) {
 		case 1:
-			#if JOYCON_MODE
-			leftStickXAxis = "Player1JCSX";
-			leftStickYAxis = "Player1JCSY";
-			#else
-			leftStickXAxis = "Player1LSX";
-			leftStickYAxis = "Player1LSY";
-			#endif
+            if (JOYCON_MODE) {
+                    if (WINDOWS)
+                    {
+                        leftStickXAxis = "Player1JCSXWin";
+                        leftStickYAxis = "Player1JCSYWin";
+                    }
+                    else
+                    {
+                        leftStickXAxis = "Player1JCSX";
+                        leftStickYAxis = "Player1JCSY";
+                    }
+            } else {
+                leftStickXAxis = "Player1LSX";
+                leftStickYAxis = "Player1LSY";
+            }
 			rightStickXAxis = "Player1RSX";
 			rightStickYAxis = "Player1RSY";
 			Button0 = KeyCode.Joystick1Button0;
@@ -96,13 +106,25 @@ public class InputMap {
 			Button3 = KeyCode.Joystick1Button3;
 			break;
 		case 2:
-			#if JOYCON_MODE
-			leftStickXAxis = "Player2JCSX";
-			leftStickYAxis = "Player2JCSY";
-			#else
-			leftStickXAxis = "Player2LSX";
-			leftStickYAxis = "Player2LSY";
-			#endif
+                Debug.Log("Mapping for player 2!");
+            if (JOYCON_MODE)
+            {
+                    if (WINDOWS)
+                    {
+                        leftStickXAxis = "Player2JCSXWin";
+                        leftStickYAxis = "Player2JCSYWin";
+                    }
+                    else
+                    {
+                        leftStickXAxis = "Player2JCSX";
+                        leftStickYAxis = "Player2JCSY";
+                    }
+            }
+            else
+            {
+                leftStickXAxis = "Player2LSX";
+                leftStickYAxis = "Player2LSY";
+            }
 			rightStickXAxis = "Player2RSX";
 			rightStickYAxis = "Player2RSY";
 			Button0 = KeyCode.Joystick2Button0;

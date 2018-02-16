@@ -18,26 +18,26 @@ public class UIConfig : MonoBehaviour {
 
 	void Start() {
 		canvas = GameObject.FindGameObjectWithTag ("Canvas");
-		CalculatePlayerUIPositions ();
+		// CalculatePlayerUIPositions ();
 	}
 
-	void CalculatePlayerUIPositions() {
-		float canvasHeight = canvas.GetComponent<RectTransform> ().sizeDelta.y;
-		canvasYMarginLength = canvasHeight * CANVAS_Y_MARGIN_FRACTION;
-		Debug.Log ("Canvas Y Margin = " + canvasYMarginLength);
+	// void CalculatePlayerUIPositions() {
+	// 	float canvasHeight = canvas.GetComponent<RectTransform> ().sizeDelta.y;
+	// 	canvasYMarginLength = canvasHeight * CANVAS_Y_MARGIN_FRACTION;
+	// 	Debug.Log ("Canvas Y Margin = " + canvasYMarginLength);
 
-		float canvasWidth = canvas.GetComponent<RectTransform> ().sizeDelta.x;
-		canvasXMarginLength = canvasWidth * CANVAS_X_MARGIN_FRACTION;
-		Debug.Log ("Canvas X Margin = " + canvasXMarginLength);
-		intervalLength = (canvasWidth - 2 * canvasXMarginLength) / MAX_PLAYERS;
-		Debug.Log ("Interval Length = " + intervalLength);
+	// 	float canvasWidth = canvas.GetComponent<RectTransform> ().sizeDelta.x;
+	// 	canvasXMarginLength = canvasWidth * CANVAS_X_MARGIN_FRACTION;
+	// 	Debug.Log ("Canvas X Margin = " + canvasXMarginLength);
+	// 	intervalLength = (canvasWidth - 2 * canvasXMarginLength) / MAX_PLAYERS;
+	// 	Debug.Log ("Interval Length = " + intervalLength);
 
-		for (int i = 0; i < MAX_PLAYERS; i++) {
-			playerUIPositions [i] = new Vector3 (
-				canvasXMarginLength + i * intervalLength, 
-				canvasYMarginLength, 0);
-		}
-	}
+	// 	for (int i = 0; i < MAX_PLAYERS; i++) {
+	// 		playerUIPositions [i] = new Vector3 (
+	// 			canvasXMarginLength + i * intervalLength, 
+	// 			canvasYMarginLength, 0);
+	// 	}
+	// }
 
 	public Vector3 GetPlayerUIPosition(int playerNum) {
 		return playerUIPositions [playerNum - 1];
