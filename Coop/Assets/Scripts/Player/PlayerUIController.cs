@@ -75,7 +75,9 @@ public class PlayerUIController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 #if INTERACTIVE_UI_MODE
-		transform.localPosition = uiConfig.GetPlayerUIPosition (playerConfig.number);
+		if (playerConfig) {
+			transform.localPosition = uiConfig.GetPlayerUIPosition (playerConfig.number);
+		}
 #endif
 
     }
