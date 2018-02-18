@@ -23,7 +23,8 @@ public class PlayerUIController : MonoBehaviour {
 		
 	void ApplyPlayerConfig(PlayerConfig player) {
 		// Set the position using the player number
-		transform.localPosition = uiConfig.GetPlayerUIPosition (player.number);
+		transform.GetComponent<RectTransform>().anchoredPosition = uiConfig.GetPlayerUIPosition (player.number);
+		Debug.Log ("Position for Player " + player.number + " is " + transform.position);
 //		transform.position = 
 		playerConfig = player;
 

@@ -12,13 +12,15 @@ public class UIConfig : MonoBehaviour {
 	float intervalLength;
 
 	// Player UI Info
-	public Vector3[] playerUIPositions;
+	public RectTransform[] playerUIPositions;
 
 	GameObject canvas;
 
 	void Start() {
 		canvas = GameObject.FindGameObjectWithTag ("Canvas");
 		// CalculatePlayerUIPositions ();
+
+		Debug.Log ("Starting UI position of Player 1 is " + playerUIPositions [0].transform.position);
 	}
 
 	// void CalculatePlayerUIPositions() {
@@ -40,7 +42,10 @@ public class UIConfig : MonoBehaviour {
 	// }
 
 	public Vector3 GetPlayerUIPosition(int playerNum) {
-		return playerUIPositions [playerNum - 1];
+		if (playerNum > 2) {
+			Debug.Log ("Error! don't support more than 2 players");
+		}
+		return playerUIPositions [playerNum - 1].GetComponent<RectTransform>().anchoredPosition;
 	}
 
 
