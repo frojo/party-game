@@ -3,31 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Ability : MonoBehaviour {
+    public GameObject abilityUIPrefab;
 
-	protected float cooldownDuration = 2f;
+    public float cooldownDuration = 2f;
 	protected bool onCooldown = false;
 
-	protected AbilityUI ui;
+	public AbilityUI ui;
+
+    // Sprite to use for cooldown (if this ability has a UI part)
+    public Sprite icon;
 
 	//public abstract void Init ();
 	public abstract void Init ();
 
 	// TODO: Initialize the UI
 	public void Init(bool hasUI) {
-		// If this is an ability with a UI component, 
-		// create one and set abilityUI equal to it
-//		if (hasUI) {
-//			AbilityUI abilityUIPrefab = FindObjectOfType<GameController> ().abilityUIPrefab;
-//			ui = Instantiate (abilityUIPrefab).GetComponent<AbilityUIController> ();
-//			ui.Init (player);
-//		}
-	}
+        // If abilityUI is not null, then this ability has a UI associated with it
+        if (hasUI) {
+            // Instantiate AbilityUI Obj
+            abilityUIPrefab = FindObjectOfType<GameController>().abilityUIPrefab;
+            ui = Instantiate(abilityUIPrefab).GetComponent<AbilityUI>();
+            ui.Init (icon);
+            // ui = newAbilityUIObj
+        }
+    }
 
 	public abstract void HandleInput (
 		Vector2 stickInput,
 		Transform characterTransform);
+
 	// Use this for initialization
 	void Start () {
+
 		
 	}
 	

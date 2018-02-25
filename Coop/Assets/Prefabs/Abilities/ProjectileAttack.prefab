@@ -124,9 +124,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2135c757b11d459e9027710a15bf4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityUIPrefab: {fileID: 0}
+  cooldownDuration: 0.5
+  ui: {fileID: 0}
+  icon: {fileID: 0}
   speed: 0.5
   duration: 5
-  cooldownDuration: 0.2
   projectile: {fileID: 1046958979539060}
 --- !u!212 &212227627894942990
 SpriteRenderer:

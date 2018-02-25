@@ -3,67 +3,99 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUIController : MonoBehaviour {
 
+    Image portrait;
 	PlayerHealthController healthUI;
 	PlayerConfig playerConfig;
 	UIConfig uiConfig;
 
-	int abilitiesAttached = 0;
+
+	int abilitiesPlaced = 0;
 	static int MAX_ABILITIES = 4;
 	static float ABILITY_MARGIN_FRACTION = .1f;
 	float abilityIntervalLength;
 
+    // DEV
+    public GameObject[] abilityPositions_DEV;
+    public GameObject abilitiesParent;
 
-	public void UpdateHealth(int health) {
-		Debug.Log ("Updating health for " + name);
+
+    public void UpdateHealth(int health) {
 		healthUI.SetHealth (health);
 	}
 		
 	void ApplyPlayerConfig(PlayerConfig player) {
 		// Set the position using the player number
 		transform.GetComponent<RectTransform>().anchoredPosition = uiConfig.GetPlayerUIPosition (player.number);
-		Debug.Log ("Position for Player " + player.number + " is " + transform.position);
-//		transform.position = 
 		playerConfig = player;
 
 		// Set the color using the player color
 	}
 
 	void ApplyCharacterConfig(CharacterConfig character) {
-		
-	}
+        portrait.sprite = character.portrait;
+    }
 
 	void AttachToCanvas() {
 		GameObject canvas = GameObject.FindGameObjectWithTag ("Canvas");
 		transform.SetParent (canvas.transform);
 	}
 
-	public void AttachAbilityUI(GameObject abilityUIObj) {
-		AbilityUI abilityUI = abilityUIObj.GetComponent<AbilityUI> ();
+    public void AttachAbilities(Ability[] abilities)
+    {
+        foreach (Ability ability in abilities)
+        {
+            // Sometimes ability is null
+            if (!ability || !ability.ui)
+            {
+                continue;
+            }
+            AbilityUI ui = ability.ui;
 
-		// Position it correctly
-		float width = gameObject.GetComponent<RectTransform>().sizeDelta.x;
-		abilityIntervalLength = width * (1 - 2 * ABILITY_MARGIN_FRACTION) / MAX_ABILITIES;
-		abilityUIObj.transform.position = transform.position + Vector3.right * abilityIntervalLength;
+            // Put it in a sane place in Unity hierarchy
+            ui.transform.SetParent(abilitiesParent.transform);
 
-		// Apply player config
-		abilityUI.SetColor(playerConfig.color);
+            // Place in correct position in UI
+            // The only way to tell if this ability has a UI is it if has an icon
+            if (ability.icon) {
+                ui.GetComponent<RectTransform>().anchoredPosition = abilityPositions_DEV[abilitiesPlaced].GetComponent<RectTransform>().anchoredPosition;
+                abilitiesPlaced++;
+            }
+            // Apply player config
+            ui.SetColor(playerConfig.color);
+        }
+    }
+    
+	//void LinkAbilitiesWithUI(Ability[] abilities) {
+	//	foreach (Ability ability in abilities) {
+	//		// Instantiate 
+	//		AbilityUI abilityUI = Instantiate(abilityUIPrefab).GetComponent<AbilityUI>();
+	//		abilityUI.Init (this);
 
-		abilitiesAttached++;
-	}
+ //           // Do actual linking here somehow i guess?
+ //        
+	//	}
+	//}
 
-	public void Init(PlayerConfig player, CharacterConfig character) {
+
+	public void Init(PlayerConfig player, CharacterConfig character, Ability[] abilities) {
 		gameObject.name = "Player " + player.number+ " UI";
 		uiConfig = GameObject.FindGameObjectWithTag ("Canvas").transform.Find ("UIConfig").GetComponent<UIConfig> ();
 
-		AttachToCanvas ();
-		ApplyPlayerConfig (player);
+        healthUI = transform.Find("Health").GetComponent<PlayerHealthController>();
+        healthUI.Init(player, character);
+        portrait = transform.Find("Portrait").GetComponent<Image>();
 
-		healthUI = transform.Find ("Health")
-			.GetComponent<PlayerHealthController> ();
-		healthUI.Init (player, character);
+        AttachToCanvas ();
+		ApplyPlayerConfig (player);
+        ApplyCharacterConfig(character);
+
+        AttachAbilities(abilities);
+
+
 	}
 
 	// Use this for initialization

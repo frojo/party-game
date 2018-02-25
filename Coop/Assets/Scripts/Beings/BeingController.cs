@@ -102,7 +102,6 @@ public class BeingController : MonoBehaviour {
 	}
 
 	public virtual void TakeDamage(int damage) {
-		Debug.Log(transform.name + " took " + damage + " damage");
 		healthPoints = healthPoints - damage;
 
 		if (healthPoints < 0) {
@@ -124,7 +123,7 @@ public class BeingController : MonoBehaviour {
 		abilities [ability_num] = ability;
 	}
 
-	public void ApplyCharacterConfig(CharacterConfig character) {
+	public virtual void ApplyCharacterConfig(CharacterConfig character) {
 		healthPoints = character.healthPoints;
 		transform.localScale *= character.size;
 		speed = character.speed;
