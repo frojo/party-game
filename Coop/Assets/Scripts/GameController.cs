@@ -53,7 +53,7 @@ public class GameController : MonoBehaviour {
 
 	// TODO(frojo): This should be moved into the PlayerController script as "Init" or "Initialize"
 	public void InitPlayer(int playerNum, string character) {
-		Debug.Log ("Initing player " + playerNum);
+		// Debug.Log ("Initing player " + playerNum);
 		// Instantiate and init player prefab
 		if (!playerPrefab) {
 			Debug.Log ("playerPrefab is null");

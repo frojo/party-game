@@ -6,7 +6,7 @@ public class ProjectileAttack : Ability {
 
 	public float speed = 1f;
 	public float duration = 5f;
-	public new float cooldownDuration = .5f;
+	// public new float cooldownDuration = .5f;
 
 	public GameObject projectile;
 
@@ -14,7 +14,7 @@ public class ProjectileAttack : Ability {
 	// TODO: We want this to cause knockback on enemies
 
 	public override void Init() {
-		base.Init (false);
+        base.Init(false);
 		projectile = transform.Find ("ProjectileObj").gameObject;
 		projectile.SetActive (false);
 		base.cooldownDuration = cooldownDuration;

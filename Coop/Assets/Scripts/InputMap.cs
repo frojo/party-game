@@ -80,7 +80,7 @@ public class InputMap {
 		
 
 	void RouteAxes(int playerNum) {
-        Debug.Log("Routint Axes for player " + playerNum);
+        Debug.Log("Routing Axes for player " + playerNum);
 		switch (playerNum) {
 		case 1:
             if (JOYCON_MODE) {

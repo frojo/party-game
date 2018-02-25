@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class AbilityUI : MonoBehaviour {
 
-	float timeUntilActive = 0f;
+	public float timeUntilActive = 0f;
 	public Text text;
+    public Image image;
 
-	public void Init(PlayerUIController ui) {
-		transform.SetParent (ui.transform);
-		text = transform.Find("Text").GetComponent<Text> ();
+	public void Init(Sprite icon) {
+
+        // TODO: set image's icon to be "icon"
+        image.sprite = icon;
 	}
 
 	// Use this for initialization
@@ -20,24 +22,50 @@ public class AbilityUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		CoolDown ();
-		text.text = timeUntilActive.ToString ();
+		UpdateCoolDown ();
+
+        UpdateView();
 	}
+
+    void UpdateView()
+    {
+        if (timeUntilActive > 0)
+        {
+            // Make sure that it's transparent/masked
+
+            // Make sure text is enabled and update text
+            text.enabled = true;
+            text.text = timeUntilActive.ToString("F0");
+
+        } else
+        {
+            // Make sure that it's not transparent
+            // Make sure text is disabled
+
+            text.enabled = false;
+        }
+    }
 
 	public void SetColor(Color color) {
 		text.color = color;
 	}
 
-	void StartCoolDown(float duration) {
-		timeUntilActive = duration;
+	public void StartCoolDown(float duration) {
+        timeUntilActive = duration;
+
+        Debug.Log("Starting UI cooldown on " + gameObject.name + "with duration = " + duration);
+
+        // Show text
 	}
 
-	void CoolDown() {
+	void UpdateCoolDown() {
 		if (timeUntilActive > 0) {
-			timeUntilActive =- Time.deltaTime;
+			timeUntilActive -= Time.deltaTime;
 			if (timeUntilActive < 0) {
 				timeUntilActive = 0;
 			}
 		}
+        
+		text.text = timeUntilActive.ToString ();
 	}
 }

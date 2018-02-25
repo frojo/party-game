@@ -17,7 +17,7 @@ public class PrototypeInfo : MonoBehaviour {
 		gameController = GameObject.FindObjectOfType<GameController> ();
 
 		SpawnPlayers ();
-		SpawnEnemies ();
+		// SpawnEnemies ();
 		
 	}
 	
