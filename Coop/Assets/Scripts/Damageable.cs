@@ -28,4 +28,10 @@ public class Damageable : MonoBehaviour {
 		knockback = knockbackArg;
 		goingRight = goingRightArg;
 	}
+
+//	void OnTriggerEnter2D(Collider2D other) {
+//		if (other.tag == "Enemy") {
+//			Destroy (gameObject);
+//		}
+//	}
 }

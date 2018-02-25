@@ -11,12 +11,12 @@ public class UltralightBeam : Ability {
 		base.Init (true);
 	}
 
-    public override void HandleInput(
+    public override void HandleButtonDown(
 		Vector2 leftStickInput, 
 		Transform characterTransform)
 	{
         Debug.Log("Ultralight beam cooldown is " + cooldownDuration);               
-        ui.StartCoolDown(cooldownDuration);
+       // ui.StartCoolDown(cooldownDuration);
 		if (!StartCooldown ()) {
 			return;
 		}

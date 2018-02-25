@@ -18,12 +18,15 @@ public class MeleeAttack : Ability {
 		attack.SetActive (false);
 	}
 
-	public override void HandleInput (
+
+	public override void HandleButtonDown (
 		Vector2 leftStickInput, 
 		Transform characterTransform)
 	{
+		if (!StartCooldown()) {
+			return;
+		}
 		DoAttack (characterTransform);
-
 	}
 
 	// Use this for initialization

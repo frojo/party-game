@@ -9,7 +9,7 @@ using UnityEngine;
 public class InputMap {
 
     bool JOYCON_MODE = true;
-    bool WINDOWS = true;
+    bool WINDOWS = false;
 
 	// E.g. 1 for player 1, 2 for player 2 etc.
 	public int playerNum;
@@ -38,11 +38,17 @@ public class InputMap {
 	public bool GetButton0KeyDown() {
 		return Input.GetKeyDown (Button0);
 	}
+	public bool GetButton0KeyUp() {
+		return Input.GetKeyUp (Button0);
+	}
 	public bool GetButton0Key() {
 		return Input.GetKey (Button0);
 	}
 	public bool GetButton1KeyDown() {
 		return Input.GetKeyDown (Button1);
+	}
+	public bool GetButton1KeyUp() {
+		return Input.GetKeyUp (Button1);
 	}
 	public bool GetButton1Key() {
 		return Input.GetKey (Button1);
@@ -50,12 +56,18 @@ public class InputMap {
 	public bool GetButton2KeyDown() {
 		return Input.GetKeyDown (Button2);
 	}
+	public bool GetButton2KeyUp() {
+		return Input.GetKeyUp (Button2);
+	}
 	public bool GetButton2Key() {
 		// HACK
 		return Input.GetKey (Button2) || Input.GetKey (KeyCode.X);
 	}
 	public bool GetButton3KeyDown() {
 		return Input.GetKeyDown (Button3);
+	}
+	public bool GetButton3KeyUp() {
+		return Input.GetKeyUp (Button3);
 	}
 	public bool GetButton3Key() {
 		// HACK
