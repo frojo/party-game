@@ -54,7 +54,7 @@ public class BeingController : MonoBehaviour {
 		if (inputMap.GetButton0KeyDown()) {
 			Debug.Log("Bottom!");
 			if (abilities[0]) {
-				abilities[0].HandleInput (leftStickInput, transform);
+				abilities[0].HandleButtonDown (leftStickInput, transform);
 			}
 		}
 		if (inputMap.GetButton1KeyDown()) {
@@ -64,7 +64,7 @@ public class BeingController : MonoBehaviour {
 		if (inputMap.GetButton2KeyDown()) {
 			// This is the attack button
 			if (abilities[2]) {
-				abilities[2].HandleInput (leftStickInput, transform);
+				abilities[2].HandleButtonDown (leftStickInput, transform);
 			}
 
 			Debug.Log("Left!");

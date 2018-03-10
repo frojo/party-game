@@ -16,7 +16,7 @@ public class MovingDamageable : Damageable {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position = transform.position + direction * speed;
+		transform.position = transform.position + direction * speed * Time.deltaTime;
 	}
 
 	public void Init(int damage, bool knockback, bool goingRight, 

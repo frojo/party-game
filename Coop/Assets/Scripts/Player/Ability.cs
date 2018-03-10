@@ -28,9 +28,13 @@ public abstract class Ability : MonoBehaviour {
         }
     }
 
-	public abstract void HandleInput (
+	public abstract void HandleButtonDown (
 		Vector2 stickInput,
 		Transform characterTransform);
+	public virtual void HandleButtonUp (
+		Vector2 stickInput,
+		Transform characterTransform) {
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -43,11 +47,17 @@ public abstract class Ability : MonoBehaviour {
 		
 	}
 		
+	// Returns false if the ability is currently on cooldown
 	public bool StartCooldown() {
+		// Do nothing if ability is currenly on cooldown
 		if (onCooldown) {
 			return false;
 		}
 		onCooldown = true;
+
+		if (ui) {
+			ui.StartCoolDown (cooldownDuration);
+		}
 		StartCoroutine (CooldownTimer (cooldownDuration));
 		return true;
 	}

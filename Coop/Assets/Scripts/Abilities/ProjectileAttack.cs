@@ -20,7 +20,7 @@ public class ProjectileAttack : Ability {
 		base.cooldownDuration = cooldownDuration;
 	}
 
-	public override void HandleInput (
+	public override void HandleButtonDown (
 		Vector2 leftStickInput, 
 		Transform characterTransform)
 	{

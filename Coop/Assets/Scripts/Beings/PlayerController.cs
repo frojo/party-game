@@ -47,32 +47,53 @@ public class PlayerController : BeingController {
 		if (inputMap.GetButton0Key()) {
 			Debug.Log("Bottom!");
 			if (abilities[0]) {
-				abilities[0].HandleInput (leftStickInput, transform);
+				abilities[0].HandleButtonDown (leftStickInput, transform);
+			}
+		} else if (inputMap.GetButton0KeyUp()) {
+			Debug.Log("Bottom Up!");
+			if (abilities[0]) {
+				abilities[0].HandleButtonUp(leftStickInput, transform);
 			}
 		}
+
 		if (inputMap.GetButton1Key()) {
 			Debug.Log("Right!");
             if (abilities[1])
             {
-                abilities[1].HandleInput(leftStickInput, transform);
+                abilities[1].HandleButtonDown(leftStickInput, transform);
             }
 
-        }
+		} else if (inputMap.GetButton1KeyUp()) {
+			Debug.Log("Right up!");
+			if (abilities[1]) {
+				abilities[1].HandleButtonUp(leftStickInput, transform);
+			}
+		}
 		if (inputMap.GetButton2Key()) {
 			// This is the attack button
 			if (abilities[2]) {
-				abilities[2].HandleInput (leftStickInput, transform);
+				abilities[2].HandleButtonDown (leftStickInput, transform);
 			}
 
 			Debug.Log("Left!");
+		} else if (inputMap.GetButton2KeyUp()) {
+			Debug.Log("Left up!");
+			if (abilities[2]) {
+				abilities[2].HandleButtonUp(leftStickInput, transform);
+			}
 		}
 		if (inputMap.GetButton3Key()) {
 			Debug.Log("Top!");
             if (abilities[3])
             {
-                abilities[3].HandleInput(leftStickInput, transform);
+                abilities[3].HandleButtonDown(leftStickInput, transform);
             }
-        }
+		} else if (inputMap.GetButton3KeyUp()) {
+			Debug.Log("Top up!");
+			if (abilities[3]) {
+				abilities[3].HandleButtonUp(leftStickInput, transform);
+			}
+		}
 
 	}
 
