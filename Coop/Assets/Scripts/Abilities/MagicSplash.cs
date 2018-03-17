@@ -12,10 +12,11 @@ public class MagicSplash : Ability
 
 	public bool aiming;
 	public Vector3 aimDirection;
-	public GameObject splash;
 
 	public GameObject splashPrefab;
-	public GameObject aimingReticle;
+
+    public GameObject splash;
+    public GameObject aimingReticle;
 
     public override void Init()
     {
@@ -65,6 +66,7 @@ public class MagicSplash : Ability
 		aiming = true;
 		aimDirection = direction ? Vector3.right : Vector3.left;
 		aimingReticle.transform.position = transform.position;
+        aimingReticle.transform.SetParent(null);
 		aimingReticle.SetActive (true);
 	}
 
@@ -75,7 +77,8 @@ public class MagicSplash : Ability
 		aiming = false;
 		Splash (aimingReticle.transform.position);
 		aimingReticle.SetActive (false);
-	}
+        aimingReticle.transform.SetParent(transform);
+    }
 
 
 
@@ -85,14 +88,10 @@ public class MagicSplash : Ability
 	}
 
 	void Splash(Vector3 position) {
-		// Make the splash/explosion happen
-		// Set position of splash
-		//
 		splash = Instantiate(splashPrefab);
 		splash.transform.position = position;
 		splash.GetComponent<Damageable>().Init (damage, false, false);
 		StartCoroutine (_Splash ());
-
 	}
 		
 }
