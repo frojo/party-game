@@ -21,7 +21,7 @@ public class MovingDamageable : Damageable {
 
 	public void Init(int damage, bool knockback, bool goingRight, 
 		float speedArg) {
-		base.Init (damage, knockback, goingRight);
+		base.Init (damage, knockback, base.knockbackDistance, goingRight);
 		speed = speedArg;
 		direction = goingRight ? Vector2.right : Vector2.left;
 
