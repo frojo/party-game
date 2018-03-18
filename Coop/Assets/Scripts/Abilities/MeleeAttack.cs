@@ -7,6 +7,9 @@ public class MeleeAttack : Ability {
 	public float duration = 1f;
 	public float range = 0.1f;
 
+	// Distance that this attack knocks back enemies
+	public float knockbackDistance = 3f;
+
 	public GameObject attack;
 
 
@@ -54,7 +57,8 @@ public class MeleeAttack : Ability {
 		attack.transform.parent = characterTransform;
 
 		attack.transform.localPosition = Vector3.right * GetDirectionMultiplier(characterTransform) * range;
-		attack.GetComponent<Damageable>().Init (1, true, characterTransform.GetComponent<BeingController>().facingRight);
+		attack.GetComponent<Damageable>().Init (1, true, knockbackDistance,
+			characterTransform.GetComponent<BeingController>().facingRight);
 		attack.SetActive (true);
 
 		StartCoroutine(_DoAttack());

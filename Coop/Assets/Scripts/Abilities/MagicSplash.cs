@@ -90,7 +90,7 @@ public class MagicSplash : Ability
 	void Splash(Vector3 position) {
 		splash = Instantiate(splashPrefab);
 		splash.transform.position = position;
-		splash.GetComponent<Damageable>().Init (damage, false, false);
+		splash.GetComponent<Damageable>().Init (damage, false, 0, false);
 		StartCoroutine (_Splash ());
 	}
 		
