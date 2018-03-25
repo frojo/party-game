@@ -29,7 +29,7 @@ public class PrototypeInfo : MonoBehaviour {
 	void SpawnPlayers() {
 		// gameController.InitPlayer (1, "Cleric");
 		gameController.InitPlayer (1, "Cleric");
-		gameController.InitPlayer (2, "Tank");
+		gameController.InitPlayer (2, "Tanks");
 
 	}
 

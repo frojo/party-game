@@ -16,8 +16,8 @@ MonoBehaviour:
   speed: 0.2
   portrait: {fileID: 21300000, guid: c1cf08491de19ad40a139631cdee5c42, type: 3}
   abilities:
+  - {fileID: 1372695135882042, guid: 868931e3f51c5e148bc62dd30c06b4d3, type: 2}
   - {fileID: 0}
-  - {fileID: 1017683292443714, guid: a11ce4b959caaf14bada9323a512c976, type: 2}
   - {fileID: 1230804157984594, guid: 2ef5137f9b3384010b81fcdd52561046, type: 2}
   - {fileID: 0}
   ultimate: {fileID: 1017683292443714, guid: a11ce4b959caaf14bada9323a512c976, type: 2}

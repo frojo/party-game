@@ -23,12 +23,13 @@ public class SinkCollider : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.CompareTag ("Enemy")) {
+		if (other.CompareTag ("EnemyHitbox")) {
 			// other.GetComponent<SpriteRenderer> ().color = Color.black;
 
 			// Force enemy to center of sink
-			other.transform.position = transform.position;
-			other.GetComponent<EnemyController> ().Stun (stunDuration);
+			GameObject enemy = other.GetComponent<Hitbox>().being.gameObject;
+			enemy.transform.position = transform.position;
+			enemy.GetComponent<EnemyController> ().Stun (stunDuration);
 		}
 	}
 }

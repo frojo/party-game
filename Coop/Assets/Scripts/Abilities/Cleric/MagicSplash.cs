@@ -20,7 +20,6 @@ public class MagicSplash : Ability
 
     public override void Init(BeingController being)
     {
-        base.icon = icon;
         base.Init(being, true);
     }
 

@@ -8,7 +8,6 @@ public class ClericOrb : Ability {
 	public float duration = 5f;
     public int damage = 10;
     public int heal = 5;
-	// public new float cooldownDuration = .5f;
 
 	public GameObject projectile;
 
@@ -19,7 +18,6 @@ public class ClericOrb : Ability {
         base.Init(being, false);
 		projectile = transform.Find ("ClericProjectile").gameObject;
 		projectile.SetActive (false);
-		base.cooldownDuration = cooldownDuration;
 	}
 
 	public override void HandleButtonDown (

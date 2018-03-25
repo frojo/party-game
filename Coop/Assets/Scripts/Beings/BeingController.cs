@@ -184,6 +184,9 @@ public class BeingController : MonoBehaviour {
 	}
 
     void AttachUlt(CharacterConfig character) {
+		if (!character.ultimate) {
+			return;
+		}
         GameObject ultObj = Instantiate(character.ultimate);
         ultObj.transform.parent = transform;
         Ultimate ult = ultObj.GetComponent<Ultimate>();

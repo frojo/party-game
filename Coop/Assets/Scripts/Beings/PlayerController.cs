@@ -12,7 +12,6 @@ public class PlayerController : BeingController {
 
 	private PlayerUIController ui;
 	private InputMap inputMap;
-    private PlayerConfig playerConfig;
 
 
 	// Use this for initialization
@@ -62,11 +61,17 @@ public class PlayerController : BeingController {
             {
                 abilities[1].HandleButtonDown(leftStickInput, transform);
             }
+			if (ult) {
+				ult.HandleButtonDown(leftStickInput, transform);
+			}
 
 		} else if (inputMap.GetButton1KeyUp()) {
 			Debug.Log("Right up!");
 			if (abilities[1]) {
 				abilities[1].HandleButtonUp(leftStickInput, transform);
+			}
+			if (ult) {
+				ult.HandleButtonUp(leftStickInput, transform);
 			}
 		}
 		if (inputMap.GetButton2Key()) {
@@ -124,7 +129,6 @@ public class PlayerController : BeingController {
 
 
     void ApplyPlayerConfig(PlayerConfig player) {
-        playerConfig = player;
 		transform.GetComponent<SpriteRenderer> ().color = player.color;
 	}
 

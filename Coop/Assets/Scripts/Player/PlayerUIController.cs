@@ -91,7 +91,9 @@ public class PlayerUIController : MonoBehaviour {
         healthUI = transform.Find("Health").GetComponent<PlayerHealthController>();
         healthUI.Init(player, character);
         ultUI = transform.Find("UltCharge").GetComponent<UltimateUI>();
-        ultUI.Init(ult.icon);
+		if (ult) {
+			ultUI.Init (ult.icon);
+		}
         portrait = transform.Find("Portrait").GetComponent<Image>();
 
         AttachToCanvas ();

@@ -112,6 +112,7 @@ MonoBehaviour:
   knockback: 0
   goingRight: 1
   knockbackDistance: 0
+  owner: {fileID: 0}
 --- !u!114 &114304150779349462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,8 +128,10 @@ MonoBehaviour:
   cooldownDuration: 2
   ui: {fileID: 0}
   icon: {fileID: 0}
+  owner: {fileID: 0}
   duration: 1
   range: 0.1
+  damage: 40
   knockbackDistance: 3
   attack: {fileID: 1360513951443550}
 --- !u!212 &212063824749491886

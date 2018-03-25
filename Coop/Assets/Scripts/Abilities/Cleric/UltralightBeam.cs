@@ -18,11 +18,6 @@ public class UltralightBeam : Ultimate {
 
     GameObject beam;
 
-	public override void Init(BeingController being) {
-        base.icon = icon;
-		base.Init (being, true);
-	}
-
     public override void HandleButtonDown(
 		Vector2 leftStickInput, 
 		Transform characterTransform)
