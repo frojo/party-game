@@ -9,7 +9,7 @@ using UnityEngine;
 public class InputMap {
 
     bool JOYCON_MODE = true;
-    bool WINDOWS = false;
+    bool WINDOWS = true;
 
 	// E.g. 1 for player 1, 2 for player 2 etc.
 	public int playerNum;

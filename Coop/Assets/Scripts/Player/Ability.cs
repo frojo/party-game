@@ -13,12 +13,15 @@ public abstract class Ability : MonoBehaviour {
     // Sprite to use for cooldown (if this ability has a UI part)
     public Sprite icon;
 
+    // The Being that this ability belogs to
+    public BeingController owner;
+
 	//public abstract void Init ();
-	public abstract void Init ();
+	public abstract void Init (BeingController being);
 
 	// TODO: Initialize the UI
-	public void Init(bool hasUI) {
-        // If abilityUI is not null, then this ability has a UI associated with it
+	public void Init(BeingController owner, bool hasUI) {
+        this.owner = owner;
         if (hasUI) {
             // Instantiate AbilityUI Obj
             abilityUIPrefab = FindObjectOfType<GameController>().abilityUIPrefab;

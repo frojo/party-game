@@ -9,14 +9,12 @@ public class PlayerUIController : MonoBehaviour {
 
     Image portrait;
 	PlayerHealthController healthUI;
+    UltimateUI ultUI;
 	PlayerConfig playerConfig;
 	UIConfig uiConfig;
 
 
 	int abilitiesPlaced = 0;
-	static int MAX_ABILITIES = 4;
-	static float ABILITY_MARGIN_FRACTION = .1f;
-	float abilityIntervalLength;
 
     // DEV
     public GameObject[] abilityPositions_DEV;
@@ -26,8 +24,13 @@ public class PlayerUIController : MonoBehaviour {
     public void UpdateHealth(int health) {
 		healthUI.SetHealth (health);
 	}
-		
-	void ApplyPlayerConfig(PlayerConfig player) {
+
+    public void UpdateUltCharge(float charge)
+    {
+        ultUI.SetCharge(charge);
+    }
+
+    void ApplyPlayerConfig(PlayerConfig player) {
 		// Set the position using the player number
 		transform.GetComponent<RectTransform>().anchoredPosition = uiConfig.GetPlayerUIPosition (player.number);
 		playerConfig = player;
@@ -81,12 +84,14 @@ public class PlayerUIController : MonoBehaviour {
 	//}
 
 
-	public void Init(PlayerConfig player, CharacterConfig character, Ability[] abilities) {
+	public void Init(PlayerConfig player, CharacterConfig character, Ability[] abilities, Ultimate ult) {
 		gameObject.name = "Player " + player.number+ " UI";
 		uiConfig = GameObject.FindGameObjectWithTag ("Canvas").transform.Find ("UIConfig").GetComponent<UIConfig> ();
 
         healthUI = transform.Find("Health").GetComponent<PlayerHealthController>();
         healthUI.Init(player, character);
+        ultUI = transform.Find("UltCharge").GetComponent<UltimateUI>();
+        ultUI.Init(ult.icon);
         portrait = transform.Find("Portrait").GetComponent<Image>();
 
         AttachToCanvas ();

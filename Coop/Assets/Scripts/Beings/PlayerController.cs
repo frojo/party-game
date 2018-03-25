@@ -97,13 +97,33 @@ public class PlayerController : BeingController {
 
 	}
 
-	public override void TakeDamage(int damage) {
-		base.TakeDamage (damage);
+	public override int TakeDamage(int damage) {
+		int damageTaken = base.TakeDamage (damage);
 		ui.UpdateHealth (healthPoints);
+        return damageTaken;
 	}
 
+    public override int Heal(int amount)
+    {
+        int healed = base.Heal(amount);
+        ui.UpdateHealth(healthPoints);
+        return healed;
+    }
 
-	void ApplyPlayerConfig(PlayerConfig player) {
+    public override void AddUltCharge(float charge)
+    {
+        base.AddUltCharge(charge);
+        ui.UpdateUltCharge(this.ultCharge);
+    }
+
+    public override void ResetUltCharge()
+    {
+        base.ResetUltCharge();
+        ui.UpdateUltCharge(0);
+    }
+
+
+    void ApplyPlayerConfig(PlayerConfig player) {
         playerConfig = player;
 		transform.GetComponent<SpriteRenderer> ().color = player.color;
 	}
@@ -118,7 +138,7 @@ public class PlayerController : BeingController {
 		ApplyCharacterConfig(character);
 
 		ui = Instantiate (playerUIPrefab).GetComponent<PlayerUIController> ();
-		ui.Init (player, character, abilities);
+		ui.Init (player, character, abilities, ult);
 
 		// PROTOTYPE TESTING
 		PrototypeInfo prototypeInfo = GameObject.FindObjectOfType<PrototypeInfo> ();

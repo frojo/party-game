@@ -17,4 +17,7 @@ public class CharacterConfig : ScriptableObject {
 	// Abilities
 	// All objects should have a script that inherits from "Ability" attached
 	public GameObject[] abilities;
+
+    // Shouold have a script attached that inherits from "Utlimate" attached
+    public GameObject ultimate;
 }

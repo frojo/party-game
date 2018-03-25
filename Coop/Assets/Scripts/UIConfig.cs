@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UIConfig : MonoBehaviour {
-
-	static int MAX_PLAYERS = 4;
-	static float CANVAS_X_MARGIN_FRACTION = .1f;
-	static float CANVAS_Y_MARGIN_FRACTION = .1f;
-	float canvasXMarginLength;
-	float canvasYMarginLength;
-	float intervalLength;
-
 	// Player UI Info
 	public RectTransform[] playerUIPositions;
 

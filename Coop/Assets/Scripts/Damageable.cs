@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour {
 
-	[HideInInspector] public int damage = 1;
+	public int damage = 1;
 
 	// Whether attack has knockback
 	[HideInInspector] public bool knockback = false;
@@ -13,11 +13,21 @@ public class Damageable : MonoBehaviour {
 
 	[HideInInspector] public float knockbackDistance = 0f;
 
+    protected string enemyHitboxTag = "EnemyHitbox";
 
+    protected string friendlyHitboxTag = "PlayerHitbox";
+
+    // The being that created this damageable. Might be null
+    public BeingController owner;
 
 	// Use this for initialization
 	void Start () {
-		
+		// DEV PROTOTYPE TESTING
+        if (name == "TestEnemy(Clone)")
+        {
+            enemyHitboxTag = "PlayerHitbox";
+            friendlyHitboxTag = "EnemyHitbox";
+        }
 	}
 	
 	// Update is called once per frame
@@ -25,18 +35,26 @@ public class Damageable : MonoBehaviour {
 		
 	}
 
-	public void Init(int damageArg, bool hasKnockback, float knockbackDistanceArg, bool goingRightArg) {
-		damage = damageArg;
-		knockback = hasKnockback;
-		knockbackDistance = knockbackDistanceArg;
-		goingRight = goingRightArg;
+    public void Init(int damage, BeingController owner)
+    {
+        this.damage = damage;
+        this.owner = owner;
+    }
+
+    public void Init(int damage, bool knockback, float knockbackDistance, bool goingRight, BeingController owner) {
+		this.damage = damage;
+		this.knockback = knockback;
+		this.knockbackDistance = knockbackDistance;
+		this.goingRight = goingRight;
+        this.owner = owner;
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		//Debug.Log("Hitbox for " + transform.parent.name + " triggered by " + other.name);
-		if (other.tag == "EnemyHitbox") {
+	public virtual void OnTriggerEnter2D(Collider2D other) {
+
+		if (other.tag == enemyHitboxTag) {
 			BeingController being = other.GetComponent<Hitbox> ().being;
-			being.TakeDamage (damage);
+			int damageDealt = being.TakeDamage (damage);
+            owner.AddUltCharge(damageDealt);
 			if (knockback) {
 				Vector2 knockbackDirection = goingRight ? Vector2.right : Vector2.left;
 				being.KnockBack (knockbackDirection, knockbackDistance);

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212464846650458286}
   - component: {fileID: 61511517160112178}
   - component: {fileID: 114775942877245006}
+  - component: {fileID: 50701469543384564}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -41,7 +42,7 @@ GameObject:
   - component: {fileID: 114663861821063128}
   m_Layer: 0
   m_Name: Hitbox
-  m_TagString: Untagged
+  m_TagString: PlayerHitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,6 +74,26 @@ Transform:
   m_Father: {fileID: 4555001837237430}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50701469543384564
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1168634561082264}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61060196169562200
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -134,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f6a9951b76f542f4ae5b2e78d99405d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  being: {fileID: 114775942877245006}
 --- !u!114 &114775942877245006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -145,18 +167,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1b69d378742479596836b1a61105d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalSpeed: 1
   speed: 0.2
   healthPoints: 0
+  ultCharge: 0
+  ultChargeFrozen: 0
   currentDirection: {x: 0, y: 0}
   facingRight: 1
   stunCounter: 0
-  gameController: {fileID: 0}
   abilities:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  playerNumber: 1
   playerUIPrefab: {fileID: 1280412471382560, guid: 7c5bfd41d8e184b508bf5fc07070ebcc,
     type: 2}
 --- !u!212 &212464846650458286

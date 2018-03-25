@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114145656504579274}
   m_Layer: 0
   m_Name: Hitbox
-  m_TagString: Untagged
+  m_TagString: EnemyHitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f6a9951b76f542f4ae5b2e78d99405d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  being: {fileID: 0}
 --- !u!114 &114301756175699538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,6 +171,8 @@ MonoBehaviour:
   damage: 1
   knockback: 0
   goingRight: 1
+  knockbackDistance: 0
+  owner: {fileID: 114352739146253082}
 --- !u!114 &114352739146253082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -181,12 +184,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de9fcbf60809458dbb95aa7e088ca60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalSpeed: 1
   speed: 1
+  maxHealth: 0
   healthPoints: 0
+  ultCharge: 0
+  ultChargeFrozen: 0
   currentDirection: {x: 0, y: 0}
   facingRight: 1
   stunCounter: 0
-  gameController: {fileID: 0}
   abilities:
   - {fileID: 0}
   - {fileID: 0}

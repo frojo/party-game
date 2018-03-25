@@ -19,9 +19,9 @@ public class MovingDamageable : Damageable {
 		transform.position = transform.position + direction * speed * Time.deltaTime;
 	}
 
-	public void Init(int damage, bool knockback, bool goingRight, 
-		float speedArg) {
-		base.Init (damage, knockback, base.knockbackDistance, goingRight);
+	public void Init(int damage, bool knockback, bool goingRight, BeingController owner,
+        float speedArg) {
+		base.Init (damage, knockback, base.knockbackDistance, goingRight, owner);
 		speed = speedArg;
 		direction = goingRight ? Vector2.right : Vector2.left;
 
@@ -33,9 +33,9 @@ public class MovingDamageable : Damageable {
 		Destroy (gameObject);
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		if (other.tag == "Enemy") {
-			Destroy (gameObject);
-		}
-	}
+    public override void OnTriggerEnter2D(Collider2D other)
+    {
+        base.OnTriggerEnter2D(other);
+    }
+
 }
