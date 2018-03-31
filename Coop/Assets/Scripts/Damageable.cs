@@ -23,7 +23,7 @@ public class Damageable : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// DEV PROTOTYPE TESTING
-        if (name == "TestEnemy(Clone)")
+        if (name == "Enemy(Clone)")
         {
             enemyHitboxTag = "PlayerHitbox";
             friendlyHitboxTag = "EnemyHitbox";
