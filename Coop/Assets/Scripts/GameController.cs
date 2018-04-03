@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour {
 	public CharacterConfig[] characters;
 	public PlayerConfig[] players;
 
+	public enum Team {Player, Enemy};
+
 	void Awake() {
 		canvas = GameObject.Find ("Canvas");
 	}

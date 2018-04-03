@@ -206,6 +206,10 @@ public class BeingController : MonoBehaviour {
         AttachUlt(character);
     }
 
+	public Hitbox GetHitbox() {
+		return transform.Find ("Hitbox").GetComponent<Hitbox> ();
+	}
+
 	public void Init(CharacterConfig character) {
 		//Debug.Log ("Initing player " + playerNum + " as a " + character.name);
 		//gameObject.name = "Player " + playerNum + " (" + character.name + ")";
