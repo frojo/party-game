@@ -6,6 +6,8 @@ public class Hitbox : MonoBehaviour {
 
 	public BeingController being;
 
+	public GameController.Team team;
+
 	// Use this for initialization
 	void Start () {
 		being = GetComponentInParent<BeingController> ();

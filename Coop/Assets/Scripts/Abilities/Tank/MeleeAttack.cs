@@ -50,7 +50,7 @@ public class MeleeAttack : Ability {
 	}
 
 	private int GetDirectionMultiplier(Transform characterTransform) {
-		bool facingRight = characterTransform.GetComponent<PlayerController>().facingRight;
+		bool facingRight = characterTransform.GetComponent<BeingController>().facingRight;
 		return facingRight ? 1 : -1;
 	}
 

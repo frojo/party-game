@@ -46,12 +46,14 @@ public class Damageable : MonoBehaviour {
 		this.knockback = knockback;
 		this.knockbackDistance = knockbackDistance;
 		this.goingRight = goingRight;
-        this.owner = owner;
+		this.owner = owner;
 	}
 
 	public virtual void OnTriggerEnter2D(Collider2D other) {
 
-		if (other.tag == enemyHitboxTag) {
+	//	if (other.tag == enemyHitboxTag) {
+		//
+		if (other.tag == "Hitbox" && other.GetComponent<Hitbox>().team != owner.GetHitbox().team) {
 			BeingController being = other.GetComponent<Hitbox> ().being;
 			int damageDealt = being.TakeDamage (damage);
             owner.AddUltCharge(damageDealt);

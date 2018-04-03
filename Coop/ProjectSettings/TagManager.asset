@@ -7,8 +7,7 @@ TagManager:
   - Enemy
   - HealthUI
   - Canvas
-  - EnemyHitbox
-  - PlayerHitbox
+  - Hitbox
   layers:
   - Default
   - TransparentFX
