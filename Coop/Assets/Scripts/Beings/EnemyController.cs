@@ -12,6 +12,12 @@ public class EnemyController : BeingController {
 	// TODO: Calculate/get this from the enemy's attack
 	float attackRange = 1.5f;
 
+    public enum AIMode { Idle, Attack, Avoid };
+    public AIMode aiMode = AIMode.Attack;
+
+    public enum AttackState { FindTarget, GetInRange, DoHit };
+    public AttackState attackState = AttackState.FindTarget;
+
 	// Use this for initialization
 	void Start () {
 		FindTarget ();
@@ -19,26 +25,55 @@ public class EnemyController : BeingController {
 	
 	// Update is called once per frame
 	void Update () {
+        // Face enemy in direction of the target
 		if (target) {
 			facingRight = transform.position.x <= target.transform.position.x;
-		}
-
-        // If in range, attack. otherwise, get in range
-		if (IsInRange())
-        {
-			Attack ();
-        } else
-        {
-            MoveInRange();
         }
+
+        switch (aiMode)
+        {
+            case AIMode.Attack:
+                Attack();
+                break;
+            case AIMode.Avoid:
+                Debug.LogError("Avoid state not implemented");
+                break;
+            case AIMode.Idle:
+                break;
+        }
+
 			
 	}
 
-	void Attack() {
-		Vector2 fakeStickInput = new Vector2 (facingRight ? 1 : -1, 0);
-		// TODO: Figure out what the actual attack is instead of hardcoding
-		abilities [2].HandleButtonDown (fakeStickInput, transform);
-	}
+    void Attack() {
+        if (!target || !target.GetComponent<BeingController>()) {
+            Debug.LogWarning(gameObject.name + " is trying to attack non-existant or non-being target");
+        }
+
+        // First determine what attack sub-state we should be in
+        if (target.GetComponent<BeingController>().IsDead()) {
+            attackState = AttackState.FindTarget;
+        } else if (IsInRange()) {
+            attackState = AttackState.DoHit;
+        } else {
+            attackState = AttackState.GetInRange;
+        }
+
+        // Execute attack depending on the state
+        switch (attackState) {
+            case AttackState.FindTarget:
+                FindTarget();
+                break;
+            case AttackState.GetInRange:
+                MoveInRange();
+                break;
+            case AttackState.DoHit:
+                DoHit();
+                break;
+        }
+
+
+    }
 
     void FindTarget()
     {
@@ -47,7 +82,31 @@ public class EnemyController : BeingController {
 		SetTargetPositions (hitbox);
     }
 
-	public virtual void SetTargetPositions (BoxCollider2D targetHitbox) {
+    void MoveInRange()
+    {
+        if (!IsStunned())
+        {
+            if (!target)
+            {
+                FindTarget();
+                if (!target)
+                {
+                    return;
+                }
+            }
+            transform.position = Vector2.MoveTowards(transform.position,
+                GetTargetPosition().position, speed * Time.deltaTime * 5);
+        }
+    }
+
+    void DoHit()
+    {
+        Vector2 fakeStickInput = new Vector2(facingRight ? 1 : -1, 0);
+        // TODO: Figure out what the actual attack is instead of hardcoding
+        abilities[2].HandleButtonDown(fakeStickInput, transform);
+    }
+
+    public virtual void SetTargetPositions (BoxCollider2D targetHitbox) {
 		// Set target positions on both sides so that if the NPC is standing
 		// there and they attack, they will hit the target
 		leftTargetPos.transform.position = new Vector3 (targetHitbox.bounds.min.x - attackRange,
@@ -66,7 +125,7 @@ public class EnemyController : BeingController {
 
 	public Transform GetTargetPosition() {
 		// Figure out if we want left or right target position (whatever is closest)
-		if (transform.position.x <= target.transform.position.x) {
+        if (transform.position.x <= target.transform.position.x) {
 			return leftTargetPos;
 		} else {
 			return rightTargetPos;
@@ -74,22 +133,7 @@ public class EnemyController : BeingController {
 
 	}
 		
-    void MoveInRange()
-    {
-        if (!IsStunned())
-        {
-            if (!target)
-            {
-                FindTarget();
-                if (!target)
-                {
-                    return;
-                }
-            }
-            transform.position = Vector2.MoveTowards(transform.position,
-				GetTargetPosition().position, speed * Time.deltaTime * 5);
-        }
-    }
+
 
 
 
