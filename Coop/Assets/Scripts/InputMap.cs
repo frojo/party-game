@@ -8,7 +8,12 @@ using UnityEngine;
 // that people want to pl
 public class InputMap {
 
-    bool JOYCON_MODE = true;
+    // NOTE TO FUTURE SELF: If the input from the axes isn't working it
+    // might be because Player1LSX/Player1LSY was set to 
+    // "Key or Mouse Button" instead of "Joystick Axis" for debugging. Set
+    // it back to try to make it work
+
+    bool JOYCON_MODE = false;
     bool WINDOWS = false;
 
 	// E.g. 1 for player 1, 2 for player 2 etc.
@@ -72,18 +77,16 @@ public class InputMap {
 	public bool GetButton3Key() {
 		// HACK
 		return Input.GetKey (Button3) || Input.GetKey(KeyCode.Z);
-	}
-	public float GetStickXAxis() {
-		return Input.GetAxis (leftStickXAxis);
-	}
-
-	public float GetStickYAxis() {
-		return Input.GetAxis (leftStickYAxis);
-	}
+    }
 	public Vector2 Get2DStickInput() {
-		return new Vector2 (
-			Input.GetAxis (leftStickXAxis),
-			Input.GetAxis (leftStickYAxis));
+        // NOTE TO FUTURE SELF: If the input from the axes isn't working it
+        // might be because Player1LSX/Player1LSY was set to 
+        // "Key or Mouse Button" instead of "Joystick Axis" for debugging. Set
+        // it back to try to make it work
+
+        return new Vector2(
+          Input.GetAxis(leftStickXAxis),
+          Input.GetAxis(leftStickYAxis));
 	}
 
 	public InputMap(int playerNum) {

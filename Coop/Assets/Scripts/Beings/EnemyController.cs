@@ -28,6 +28,8 @@ public class EnemyController : BeingController {
         // Face enemy in direction of the target
 		if (target) {
 			facingRight = transform.position.x <= target.transform.position.x;
+        } else {
+
         }
 
         switch (aiMode)
@@ -51,7 +53,7 @@ public class EnemyController : BeingController {
         }
 
         // First determine what attack sub-state we should be in
-        if (target.GetComponent<BeingController>().IsDead()) {
+        if (!target || target.GetComponent<BeingController>().IsDead()) {
             attackState = AttackState.FindTarget;
         } else if (IsInRange()) {
             attackState = AttackState.DoHit;
@@ -78,6 +80,11 @@ public class EnemyController : BeingController {
     void FindTarget()
     {
         target = GameObject.FindGameObjectWithTag("Player");
+        if (!target) {
+            return;
+        }
+
+        Debug.Log("Found target: " + target.name);
 		BoxCollider2D hitbox = target.transform.Find ("Hitbox").GetComponent<BoxCollider2D> ();
 		SetTargetPositions (hitbox);
     }
@@ -107,6 +114,16 @@ public class EnemyController : BeingController {
     }
 
     public virtual void SetTargetPositions (BoxCollider2D targetHitbox) {
+        // Create new target positions if 
+        if (!leftTargetPos) {
+            leftTargetPos = new GameObject().transform;
+        }
+        if (!rightTargetPos)
+        {
+            rightTargetPos = new GameObject().transform;
+        }
+
+
 		// Set target positions on both sides so that if the NPC is standing
 		// there and they attack, they will hit the target
 		leftTargetPos.transform.position = new Vector3 (targetHitbox.bounds.min.x - attackRange,
@@ -120,11 +137,12 @@ public class EnemyController : BeingController {
 	}
 
 	bool IsInRange() {
+
 		return Vector3.Distance (transform.position, GetTargetPosition ().position) < 0.01;
 	}
 
 	public Transform GetTargetPosition() {
-		// Figure out if we want left or right target position (whatever is closest)
+        // Figure out if we want left or right target position (whatever is closest)
         if (transform.position.x <= target.transform.position.x) {
 			return leftTargetPos;
 		} else {
