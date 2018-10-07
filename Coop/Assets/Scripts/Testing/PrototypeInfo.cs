@@ -10,7 +10,7 @@ public class PrototypeInfo : MonoBehaviour {
 	public GameObject enemyPrefab;
 	public GameObject[] enemySpawnPoints;
 	int nextEnemySPIndex = 0;
-	public CharacterConfig mook;
+    public CharacterConfig testEnemyCharacter;
 
 	// Use this for initialization
 	void Start () {
@@ -36,7 +36,7 @@ public class PrototypeInfo : MonoBehaviour {
 	void SpawnEnemies() {
 		foreach (GameObject enemySP in enemySpawnPoints) {
 			GameObject enemy = Instantiate (enemyPrefab);
-			enemy.GetComponent<BeingController>().Init (mook);
+            enemy.GetComponent<BeingController>().Init (testEnemyCharacter);
 			enemy.transform.parent = transform;
 			enemy.transform.position = enemySP.transform.position;
 		}
