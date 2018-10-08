@@ -33,10 +33,10 @@ public abstract class Ability : MonoBehaviour {
 
 	public abstract void HandleButtonDown (
 		Vector2 stickInput,
-		Transform characterTransform);
+		Transform attackerTransform);
 	public virtual void HandleButtonUp (
 		Vector2 stickInput,
-		Transform characterTransform) {
+		Transform attackerTransform) {
 	}
 
 	// Use this for initialization

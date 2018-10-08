@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PrototypeInfo : MonoBehaviour {
 	public GameController gameController;
+    public PlaceManager placeManager;
 
 	public GameObject[] playerSpawnPoints;
 
@@ -15,6 +16,7 @@ public class PrototypeInfo : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameController = GameObject.FindObjectOfType<GameController> ();
+        placeManager = GameObject.FindObjectOfType<PlaceManager>();
 
 		SpawnPlayers ();
 		SpawnEnemies ();
@@ -22,16 +24,22 @@ public class PrototypeInfo : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    void Update () {
+        if (Input.GetKeyDown(KeyCode.F)) {
+            Debug.Log("Got input!");
+            placeManager.GoToNextPlace();
+        }
 		
 	}
 
 	void SpawnPlayers() {
-		// gameController.InitPlayer (1, "Cleric");
-		gameController.InitPlayer (1, "Tank");
-		gameController.InitPlayer (2, "Cleric");
+        // gameController.InitPlayer (1, "Cleric");
+        GameObject player1 = gameController.InitPlayer(1, "Tank");
+        placeManager.RegisterPlayer(1, player1);
 
-	}
+        GameObject player2 = gameController.InitPlayer (2, "Cleric");
+        placeManager.RegisterPlayer(2, player2);
+    }
 
 	void SpawnEnemies() {
 		foreach (GameObject enemySP in enemySpawnPoints) {

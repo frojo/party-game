@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	// TODO(frojo): This should be moved into the PlayerController script as "Init" or "Initialize"
-	public void InitPlayer(int playerNum, string character) {
+    public GameObject InitPlayer(int playerNum, string character) {
 		// Debug.Log ("Initing player " + playerNum);
 		// Instantiate and init player prefab
 		if (!playerPrefab) {
@@ -62,16 +62,11 @@ public class GameController : MonoBehaviour {
 		}
 		GameObject player = Instantiate(playerPrefab);
 
-		// Instantiate UI player stuff
-//		if (!playerUIPrefab) {
-//			Debug.Log ("playerUIPrefab is null");
-//		}
-//		GameObject playerUI = Instantiate(playerUIPrefab);
-//		playerUI.transform.SetParent (canvas.transform);
-
 		player.GetComponent<PlayerController> ().Init (
 			GetPlayerConfig(playerNum),
 			GetCharacterConfig (character));
+
+        return player;
 	}
 
 	public void EndGame() {

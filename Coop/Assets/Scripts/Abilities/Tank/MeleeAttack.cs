@@ -8,16 +8,19 @@ public class MeleeAttack : Ability {
 	public float range = 0.1f;
 	public int damage;
 
-	// Distance that this attack knocks back enemies
-	public float knockbackDistance = 3f;
+    // Distance that this attack knocks back enemies
+    public float knockbackDistance = 3f;
+
+    // Whether attacker can move while attacking
+    public bool canMoveDuringAttack = true;
 
 	public GameObject attack;
 
 
 	// TODO: We want this to cause knockback on enemies
 
-	public override void Init(BeingController being) {
-        base.Init(being, false);
+	public override void Init(BeingController attacker) {
+        base.Init(attacker, false);
 		attack = transform.Find ("AttackObj").gameObject;
 		attack.SetActive (false);
 	}
@@ -25,12 +28,12 @@ public class MeleeAttack : Ability {
 
 	public override void HandleButtonDown (
 		Vector2 leftStickInput, 
-		Transform characterTransform)
+		Transform attackerTransform)
 	{
 		if (!StartCooldown()) {
 			return;
 		}
-		DoAttack (characterTransform);
+        DoAttack (attackerTransform);
 	}
 
 	// Use this for initialization
@@ -47,20 +50,27 @@ public class MeleeAttack : Ability {
 		yield return new WaitForSeconds (duration);
 		attack.SetActive(false);
 		attack.transform.parent = transform;
-	}
+
+        Debug.Log("Enable attacker's movement");
+    }
 
 	private int GetDirectionMultiplier(Transform characterTransform) {
 		bool facingRight = characterTransform.GetComponent<BeingController>().facingRight;
 		return facingRight ? 1 : -1;
 	}
 
-	public void DoAttack(Transform characterTransform) {
-		attack.transform.parent = characterTransform;
+	public void DoAttack(Transform attackerTransform) {
+        attack.transform.parent = attackerTransform;
 
-		attack.transform.localPosition = Vector3.right * GetDirectionMultiplier(characterTransform) * range;
+        attack.transform.localPosition = Vector3.right * GetDirectionMultiplier(attackerTransform) * range;
 		attack.GetComponent<Damageable>().Init (damage, true, knockbackDistance,
-			characterTransform.GetComponent<BeingController>().facingRight, owner);
+                                                attackerTransform.GetComponent<BeingController>().facingRight, owner);
 		attack.SetActive (true);
+
+        if (!canMoveDuringAttack) {
+            Debug.Log("Disable attacker's movement");
+            // Disable movement 
+        }
 
 		StartCoroutine(_DoAttack());
 	}
