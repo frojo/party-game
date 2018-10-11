@@ -5,6 +5,7 @@ using UnityEngine;
 public class PrototypeInfo : MonoBehaviour {
 	public GameController gameController;
     public PlaceManager placeManager;
+    public Spawner spawner;
 
 	public GameObject[] playerSpawnPoints;
 
@@ -13,21 +14,32 @@ public class PrototypeInfo : MonoBehaviour {
 	int nextEnemySPIndex = 0;
     public CharacterConfig testEnemyCharacter;
 
+    // Spawn points for 
+    public Transform firstEnemySpawnPoint;
+    public Transform[] wave2SpawnPoints;
+    int wave2AliveEnemies = 0;
+    public Transform[] wave3SpawnPoints;
+
 	// Use this for initialization
 	void Start () {
 		gameController = GameObject.FindObjectOfType<GameController> ();
         placeManager = GameObject.FindObjectOfType<PlaceManager>();
+        spawner = GameObject.FindObjectOfType<Spawner>();
 
 		SpawnPlayers ();
-		SpawnEnemies ();
+        //	SpawnEnemies ();
+
+        StartDemo();
 		
 	}
 	
 	// Update is called once per frame
-    void Update () {
-        if (Input.GetKeyDown(KeyCode.F)) {
-            Debug.Log("Got input!");
-            placeManager.GoToNextPlace();
+    void Update () { 
+
+        if (Input.GetMouseButtonDown(0)) {
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 position2d = new Vector2(worldPosition.x, worldPosition.y);
+            GameObject enemy = spawner.SpawnEnemy(position2d, testEnemyCharacter);
         }
 		
 	}
@@ -59,4 +71,46 @@ public class PrototypeInfo : MonoBehaviour {
 	public Vector3 GetPlayerPrototypePosition(int playerNum) {
 		return playerSpawnPoints [playerNum-1].transform.position;
 	}
+
+
+    void StartDemo() {
+        // Spawn first enemy and register second wave to start 
+        GameObject enemy = spawner.SpawnEnemy(firstEnemySpawnPoint, 
+                                              testEnemyCharacter);
+        enemy.GetComponent<BeingController>().OnDied += SpawnWave2;
+        // TODO: Deregister from the same OnDied function later
+        // When I design the actual WaveTracker thing, I should make sure to do
+        // this for all waves
+    }
+
+
+    public void SpawnWave2() {
+
+        foreach (Transform position in wave2SpawnPoints) {
+            GameObject enemy = spawner.SpawnEnemy(position, testEnemyCharacter);
+            wave2AliveEnemies++;
+            enemy.GetComponent<BeingController>().OnDied += Wave2Death;
+        }
+
+    }
+
+    // 
+    void Wave2Death() {
+        wave2AliveEnemies--;
+
+        // If we've reached 0 alive enemies, wave is over
+        if (wave2AliveEnemies == 0) {
+            
+        }
+    }
+
+    public void SpawnWave3()
+    {
+
+        foreach (Transform position in wave2SpawnPoints)
+        {
+            spawner.SpawnEnemy(position, testEnemyCharacter);
+        }
+
+    }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+    // DEBUG
+    public DebugInfo debugInfo;
+
 	public GameObject gameOverText;
 
 	public GameObject enemiesTest;
@@ -17,6 +20,10 @@ public class GameController : MonoBehaviour {
 	public PlayerConfig[] players;
 
 	public enum Team {Player, Enemy};
+
+    //public void SetDebugText(string s) {
+    //    debugInfo.SetText(s);
+    //}
 
 	void Awake() {
 		canvas = GameObject.Find ("Canvas");

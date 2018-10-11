@@ -16,6 +16,7 @@ public class PlayerController : BeingController {
 
 	// Use this for initialization
 	void Start () {
+
 		
 	}
 
@@ -26,11 +27,18 @@ public class PlayerController : BeingController {
 		UpdateCurrentDirection (leftStickInput);
 		UpdateAbilities (leftStickInput);
 
-		// Do movement
-		Vector3 leftStickInput3d = 
-			new Vector3 (leftStickInput.x, leftStickInput.y, 0);
-		transform.position += leftStickInput3d * speed;
-	}
+        // Do movement
+        Vector3 leftStickInput3d = 
+        	new Vector3 (leftStickInput.x, leftStickInput.y, 0);
+        // transform.position += leftStickInput3d * speed;
+
+        Vector2 rawPositionDelta = leftStickInput * speed;
+
+        // TEST
+        UpdatePosition(rawPositionDelta);
+
+
+    }
 
 	void UpdateCurrentDirection(Vector2 stickInput) {
 		if (stickInput != Vector2.zero) {
@@ -135,11 +143,11 @@ public class PlayerController : BeingController {
 	public void Init(PlayerConfig player, CharacterConfig character) {
 		gameObject.name = "Player " + player.number+ " (" + character.name + ")";
 
-		gameController = GameObject.FindObjectOfType<GameController> ();
 		inputMap = new InputMap (player.number);
 
 		ApplyPlayerConfig (player);
-		ApplyCharacterConfig(character);
+
+        base.Init(character);
 
 		ui = Instantiate (playerUIPrefab).GetComponent<PlayerUIController> ();
 		ui.Init (player, character, abilities, ult);

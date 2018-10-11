@@ -8,6 +8,8 @@ TagManager:
   - HealthUI
   - Canvas
   - Hitbox
+  - EnemyHitbox
+  - Bound
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Bounds
+  - Beings
   - 
   - 
   - 
