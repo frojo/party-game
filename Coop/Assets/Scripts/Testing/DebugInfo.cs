@@ -41,9 +41,4 @@ public class DebugInfo : MonoBehaviour {
     public void AddTextThisFrame (string s) {
         textForThisFrame += s + "\n";
     }
-
-	//public void SetText(string newVal) {
- //       Debug.Log("Text! " + newVal);
- //       text.GetComponent<Text>().text = newVal + Time.deltaTime;
-	//}
 }
