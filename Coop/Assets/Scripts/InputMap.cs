@@ -56,7 +56,7 @@ public class InputMap {
 		return Input.GetKeyUp (Button1);
 	}
 	public bool GetButton1Key() {
-		return Input.GetKey (Button1);
+        return Input.GetKey(Button1);
 	}
 	public bool GetButton2KeyDown() {
 		return Input.GetKeyDown (Button2);
@@ -69,11 +69,11 @@ public class InputMap {
 		return Input.GetKey (Button2) || Input.GetKey (KeyCode.X);
 	}
 	public bool GetButton3KeyDown() {
-		return Input.GetKeyDown (Button3);
-	}
+        return Input.GetKeyDown (Button3) || Input.GetKeyDown(KeyCode.Z);
+    }
 	public bool GetButton3KeyUp() {
-		return Input.GetKeyUp (Button3);
-	}
+		return Input.GetKeyUp (Button3) || Input.GetKeyUp(KeyCode.Z);
+    }
 	public bool GetButton3Key() {
 		// HACK
 		return Input.GetKey (Button3) || Input.GetKey(KeyCode.Z);

@@ -11,9 +11,6 @@ public class ClericOrb : Ability {
 
 	public GameObject projectile;
 
-
-	// TODO: We want this to cause knockback on enemies
-
 	public override void Init(BeingController being) {
         base.Init(being, false);
 		projectile = transform.Find ("ClericProjectile").gameObject;

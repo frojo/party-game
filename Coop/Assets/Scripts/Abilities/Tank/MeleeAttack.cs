@@ -9,7 +9,10 @@ public class MeleeAttack : Ability {
 	public int damage;
 
     // Distance that this attack knocks back enemies
-    public float knockbackDistance = 3f;
+    public float knockbackDistance;
+
+    // Seconds this attack stuns enemies
+    public float stunDuration;
 
     // Whether attacker can move while attacking
     public bool canMoveDuringAttack = true;
@@ -54,7 +57,7 @@ public class MeleeAttack : Ability {
         Debug.Log("Enable attacker's movement");
     }
 
-	private int GetDirectionMultiplier(Transform characterTransform) {
+	int GetDirectionMultiplier(Transform characterTransform) {
 		bool facingRight = characterTransform.GetComponent<BeingController>().facingRight;
 		return facingRight ? 1 : -1;
 	}
@@ -64,6 +67,7 @@ public class MeleeAttack : Ability {
 
         attack.transform.localPosition = Vector3.right * GetDirectionMultiplier(attackerTransform) * range;
 		attack.GetComponent<Damageable>().Init (damage, true, knockbackDistance,
+                                                true, stunDuration,
                                                 attackerTransform.GetComponent<BeingController>().facingRight, owner);
 		attack.SetActive (true);
 
@@ -73,16 +77,5 @@ public class MeleeAttack : Ability {
         }
 
 		StartCoroutine(_DoAttack());
-	}
-
-	void OnTriggerEnter2D(Collider2D other) {
-		// TODO: We want this to cause knockback on enemies
-		// And also damage them
-		//Destroy (other.gameObject);
-		// If the other thing is an enemy (or player, or any character), cause a stun effect
-		CharacterController characterController = other.transform.GetComponent<CharacterController>();
-		if (characterController) {
-			// DO stun
-		};
 	}
 }

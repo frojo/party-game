@@ -32,10 +32,11 @@ public class PlayerController : BeingController {
         	new Vector3 (leftStickInput.x, leftStickInput.y, 0);
         // transform.position += leftStickInput3d * speed;
 
-        Vector2 rawPositionDelta = leftStickInput * speed;
+        Vector2 rawPositionDelta = leftStickInput * speed * Time.deltaTime;
 
         // TEST
         UpdatePosition(rawPositionDelta);
+
 
 
     }

@@ -10,7 +10,7 @@ public class EnemyController : BeingController {
 	public Transform rightTargetPos;
 
 	// TODO: Calculate/get this from the enemy's attack
-	float attackRange = 1.5f;
+	float attackRange = 2f;
 
     public enum AIMode { Idle, Attack, Avoid };
     public AIMode aiMode = AIMode.Attack;
@@ -48,9 +48,9 @@ public class EnemyController : BeingController {
 	}
 
     void Attack() {
-        if (!target || !target.GetComponent<BeingController>()) {
-            Debug.LogWarning(gameObject.name + " is trying to attack non-existant or non-being target");
-        }
+        //if (!target || !target.GetComponent<BeingController>()) {
+        //    Debug.LogWarning(gameObject.name + " is trying to attack non-existant or non-being target");
+        //}
 
         // First determine what attack sub-state we should be in
         if (!target || target.GetComponent<BeingController>().IsDead()) {

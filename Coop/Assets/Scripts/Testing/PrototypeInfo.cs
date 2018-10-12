@@ -28,7 +28,7 @@ public class PrototypeInfo : MonoBehaviour {
 
 		SpawnPlayers ();
         //	SpawnEnemies ();
-        StartDemo();
+        // StartDemo();
 		
 	}
 	
@@ -46,10 +46,10 @@ public class PrototypeInfo : MonoBehaviour {
 
 	void SpawnPlayers() {
         // gameController.InitPlayer (1, "Cleric");
-        GameObject player1 = gameController.InitPlayer(1, "Cleric");
+        GameObject player1 = gameController.InitPlayer(1, "Tank");
         placeManager.RegisterPlayer(1, player1);
 
-        GameObject player2 = gameController.InitPlayer (2, "Tank");
+        GameObject player2 = gameController.InitPlayer (2, "Cleric");
         placeManager.RegisterPlayer(2, player2);
     }
 
@@ -76,7 +76,6 @@ public class PrototypeInfo : MonoBehaviour {
     void StartDemo() {
         // Populate wave3SpawnPoints
         GameObject parent = GameObject.Find("Wave3");
-        Debug.Log("Found wave3 object: " + parent.name);
         int i = 0;
         foreach (Transform spawnPoint in parent.transform) {
             wave3SpawnPoints[i] = spawnPoint;

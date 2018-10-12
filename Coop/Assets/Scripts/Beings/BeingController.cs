@@ -52,7 +52,7 @@ public class BeingController : MonoBehaviour {
 				new Vector3 (leftStickInput.x, leftStickInput.y, 0);
 
             // This is the change in position before accounting for collisions
-            Vector2 rawPositionDelta = leftStickInput * speed;
+            Vector2 rawPositionDelta = leftStickInput * speed * Time.deltaTime;
       
             UpdatePosition(rawPositionDelta);
         }
@@ -348,8 +348,6 @@ public class BeingController : MonoBehaviour {
         gameController = GameObject.FindObjectOfType<GameController>();
         //inputMap = new InputMap(0);
         onlyBounds = LayerMask.GetMask("Bounds");
-        Debug.Log("onlyBounds: " + onlyBounds.value);
-
     }
 
 }

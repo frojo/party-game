@@ -8,10 +8,13 @@ public class Damageable : MonoBehaviour {
 
 	// Whether attack has knockback
 	[HideInInspector] public bool knockback = false;
+    [HideInInspector] public float knockbackDistance = 0f;
 
-	[HideInInspector] public bool goingRight = true;
+    [HideInInspector] public bool goingRight = true;
 
-	[HideInInspector] public float knockbackDistance = 0f;
+    // Whether attack stuns
+    [HideInInspector] public bool stun = false;
+    [HideInInspector] public float stunDuration = 0f;
 
     protected string enemyHitboxTag = "EnemyHitbox";
 
@@ -22,12 +25,7 @@ public class Damageable : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		// DEV PROTOTYPE TESTING
-        if (name == "Enemy(Clone)")
-        {
-            enemyHitboxTag = "PlayerHitbox";
-            friendlyHitboxTag = "EnemyHitbox";
-        }
+
 	}
 	
 	// Update is called once per frame
@@ -35,13 +33,18 @@ public class Damageable : MonoBehaviour {
 		
 	}
 
+    protected bool SameTeam(Collider2D other) {
+        return other.GetComponent<Hitbox>().team == owner.GetHitbox().team;
+    }
+
     public void Init(int damage, BeingController owner)
     {
         this.damage = damage;
         this.owner = owner;
     }
 
-    public void Init(int damage, bool knockback, float knockbackDistance, bool goingRight, BeingController owner) {
+    public void Init(int damage, bool knockback, float knockbackDistance, 
+                     bool goingRight, BeingController owner) {
 		this.damage = damage;
 		this.knockback = knockback;
 		this.knockbackDistance = knockbackDistance;
@@ -49,18 +52,34 @@ public class Damageable : MonoBehaviour {
 		this.owner = owner;
 	}
 
-	public virtual void OnTriggerEnter2D(Collider2D other) {
+    public void Init(int damage, bool knockback, float knockbackDistance,
+                     bool stun, float stunDuration, bool goingRight, BeingController owner)
+    {
+        this.damage = damage;
+        this.knockback = knockback;
+        this.knockbackDistance = knockbackDistance;
+        this.stun = stun;
+        this.stunDuration = stunDuration;
+        this.goingRight = goingRight;
+        this.owner = owner;
+    }
+
+    public virtual void OnTriggerEnter2D(Collider2D other) {
 
 	//	if (other.tag == enemyHitboxTag) {
 		//
-		if (other.tag == "Hitbox" && other.GetComponent<Hitbox>().team != owner.GetHitbox().team) {
+        if (other.tag == "Hitbox" && !SameTeam(other)) {
 			BeingController being = other.GetComponent<Hitbox> ().being;
 			int damageDealt = being.TakeDamage (damage);
             owner.AddUltCharge(damageDealt);
 			if (knockback) {
+                Debug.Log(owner.name + " does a knockback to " + being.name);
 				Vector2 knockbackDirection = goingRight ? Vector2.right : Vector2.left;
 				being.KnockBack (knockbackDirection, knockbackDistance);
 			}
+            if (stun) {
+                being.Stun(stunDuration);
+            }
 		}
 	}
 		

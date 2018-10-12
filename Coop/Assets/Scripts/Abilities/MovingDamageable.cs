@@ -7,7 +7,7 @@ public class MovingDamageable : Damageable {
 	public float speed = 1f;
 	public Vector3 direction;
 
-	float duration = 5f;
+	public float duration = 5f;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +28,7 @@ public class MovingDamageable : Damageable {
 		StartCoroutine (Die (duration));
 	}
 
-	IEnumerator Die(float duration) {
+    IEnumerator Die(float duration) {
 		yield return new WaitForSeconds (duration);
 		Destroy (gameObject);
 	}
