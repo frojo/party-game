@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 10
   size: 1
-  speed: 0.2
+  speed: 5
   portrait: {fileID: 21300000, guid: c1cf08491de19ad40a139631cdee5c42, type: 3}
   abilities:
   - {fileID: 1372695135882042, guid: 868931e3f51c5e148bc62dd30c06b4d3, type: 2}

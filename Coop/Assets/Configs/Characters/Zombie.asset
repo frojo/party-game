@@ -11,13 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01266ac3c45546959d537732cdb9b24, type: 3}
   m_Name: Zombie
   m_EditorClassIdentifier: 
-  healthPoints: 1
+  healthPoints: 4
   size: 1
-  speed: 0.5
+  speed: 0.4
   portrait: {fileID: 0}
   abilities:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 1171361557226890, guid: 37a721d6963664f2a9557492e8626cb2, type: 2}
+  - {fileID: 1780228601625180, guid: 2a55511cc71124f1b93ccb494657863a, type: 2}
   - {fileID: 0}
   ultimate: {fileID: 0}
