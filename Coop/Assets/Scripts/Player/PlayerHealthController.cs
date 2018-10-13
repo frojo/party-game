@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class PlayerHealthController : MonoBehaviour {
 
 	public GameObject healthText;
+    public Healthbar bar;
 	public int maxHealth;
 
 	int numHealthLeft;
 
 	public void Init(PlayerConfig player, CharacterConfig character) {
-		healthText.GetComponent<Text> ().color = player.color;
+		// healthText.GetComponent<Text> ().color = player.color;
+        bar.Init(player.color);
 
 		maxHealth = character.healthPoints;
 		numHealthLeft = maxHealth;
@@ -35,19 +37,13 @@ public class PlayerHealthController : MonoBehaviour {
 	}
 
 	public void SetHealth(int numHealth) {
+        Debug.Log("Setting health to " + numHealth);
 		numHealthLeft = numHealth;
 		UpdateHealthText ();
+        bar.ResizeBar((float)numHealthLeft / maxHealth);
 	}
 
 	public void RestoreToFullHealth() {
 		SetHealth (maxHealth);
-	}
-
-	public void LoseHealth(int numHealth) {
-		int numHealthToLose = Mathf.Min (numHealthLeft, numHealth);
-
-		numHealthLeft -= numHealthToLose;
-		UpdateHealthText ();
-
 	}
 }

@@ -71,17 +71,6 @@ public class PlayerUIController : MonoBehaviour {
             ui.SetColor(playerConfig.color);
         }
     }
-    
-	//void LinkAbilitiesWithUI(Ability[] abilities) {
-	//	foreach (Ability ability in abilities) {
-	//		// Instantiate 
-	//		AbilityUI abilityUI = Instantiate(abilityUIPrefab).GetComponent<AbilityUI>();
-	//		abilityUI.Init (this);
-
- //           // Do actual linking here somehow i guess?
- //        
-	//	}
-	//}
 
 
 	public void Init(PlayerConfig player, CharacterConfig character, Ability[] abilities, Ultimate ult) {
