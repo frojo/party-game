@@ -8,11 +8,6 @@ public class Healthbar : MonoBehaviour {
     public float maxWidth;
     public float leftXPos;
 
-   // public Image healthSprite;
-    //public Image maskSprite;
-
-   // public float testFrac = 1;
-
     public RectTransform healthRectTransform;
 
 	// Use this for initialization
@@ -23,7 +18,6 @@ public class Healthbar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //ResizeBar(testFrac);
 	}
 
     public void Init(Color color) {
