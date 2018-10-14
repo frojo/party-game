@@ -134,36 +134,6 @@ public class BeingController : MonoBehaviour {
         float leftCollisionDistance = leftHit.collider == null ? Mathf.Infinity : leftHit.distance;
         float rightCollisionDistance = rightHit.collider == null ? Mathf.Infinity : rightHit.distance;
 
-
-        //// DEBUG
-        //if (name == "Player 1 (Tank)" && !horizontal)
-        //{
-        //    gameController.debugInfo.AddTextThisFrame(
-        //        "rawPositionDelta: " + rawPositionDelta);
-        //    gameController.debugInfo.AddTextThisFrame(
-        //        "direction: " + direction);
-        //    gameController.debugInfo.AddTextThisFrame(
-        //        "leftCorner: " + leftCorner);
-        //    gameController.debugInfo.AddTextThisFrame(
-        //        "rightCorner: " + rightCorner);
-        //    gameController.debugInfo.AddTextThisFrame(
-        //        "leftCollisionDistance: " + leftCollisionDistance);
-        //    if (leftHit.collider != null) {
-        //        gameController.debugInfo.AddTextThisFrame(
-        //            "leftHit.collider: " + leftHit.collider.name);
-
-        //    }
-        //    gameController.debugInfo.AddTextThisFrame(
-        //        "rightCollisionDistance: " + rightCollisionDistance);
-        //    if (rightHit.collider != null)
-        //    {
-        //        gameController.debugInfo.AddTextThisFrame(
-        //            "rightHit.collider: " + rightHit.collider.name);
-
-        //    }
-
-        //}
-
         // Move player the min(distanceToCollider, rawMoveDelta)
         float absPositionDelta = Mathf.Min(leftCollisionDistance, 
                                            rightCollisionDistance, 
@@ -301,8 +271,6 @@ public class BeingController : MonoBehaviour {
         ultChargeFrozen = false;
     }
 
-    // TODO: Freeze/Unfreeze ult charge functions
-
 	void AttachAbility(int ability_num, CharacterConfig character) {
 		if (!character.abilities[ability_num]) {
 			return;
@@ -342,11 +310,8 @@ public class BeingController : MonoBehaviour {
 	}
 
 	public void Init(CharacterConfig character) {
-		//Debug.Log ("Initing player " + playerNum + " as a " + character.name);
-		//gameObject.name = "Player " + playerNum + " (" + character.name + ")";
 		ApplyCharacterConfig (character);
         gameController = GameObject.FindObjectOfType<GameController>();
-        //inputMap = new InputMap(0);
         onlyBounds = LayerMask.GetMask("Bounds");
     }
 

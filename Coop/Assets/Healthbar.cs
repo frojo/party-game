@@ -34,7 +34,6 @@ public class Healthbar : MonoBehaviour {
 
         Vector3 currPos = healthRectTransform.localPosition;
         float newXPos = leftXPos + newWidth / 2;
-
         healthRectTransform.localPosition = new Vector3(newXPos, currPos.y, currPos.z);
     }
 }

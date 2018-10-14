@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : BeingController {
 
 	public GameObject target;
+    public SpriteRenderer healthbar;
 
 	public Transform leftTargetPos;
 	public Transform rightTargetPos;
@@ -48,9 +49,6 @@ public class EnemyController : BeingController {
 	}
 
     void Attack() {
-        //if (!target || !target.GetComponent<BeingController>()) {
-        //    Debug.LogWarning(gameObject.name + " is trying to attack non-existant or non-being target");
-        //}
 
         // First determine what attack sub-state we should be in
         if (!target || target.GetComponent<BeingController>().IsDead()) {
@@ -150,6 +148,26 @@ public class EnemyController : BeingController {
 		}
 
 	}
+
+    public override int TakeDamage(int damage) {
+        int damageTaken = base.TakeDamage(damage);
+
+        // Resize health bar
+        // Should I 
+        // Make the health bar a child of the Canvas and update it's 
+        // position with respect to the enemy gameobject? (this'll let me 
+        // reuse the code/prefab from Healthbar.cs)
+        // OR
+        // Make a new prefab/gameobject/script for EnemyHealthbar and redo the 
+        // the resizing logic in the game world (not the canvas)
+        // 
+        // I think i'm going with the second option
+
+
+        return damageTaken;
+    }
+
+
 		
 
 
