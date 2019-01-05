@@ -1,2 +1,3 @@
-# party-game
-Cooperative game for a cool party with cool people.
+# Co-op beat-em-up
+
+A beat-em-up game designed to illicit gratification through teamwork and connection
