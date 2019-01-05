@@ -274,7 +274,7 @@ MonoBehaviour:
   ult: {fileID: 0}
   cornerEpsilon: 0.1
   target: {fileID: 0}
-  healthbar: {fileID: 212105452766714280}
+  healthbar: {fileID: 114753671066473418}
   leftTargetPos: {fileID: 4086338215014472}
   rightTargetPos: {fileID: 4693324074783720}
   aiMode: 1
@@ -290,9 +290,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de30a4bf7fe1a485e88982787a22f45e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxScale: 0
   maxWidth: 0
   leftXPos: 0
-  testFrac: 1
+  sprite: {fileID: 0}
 --- !u!212 &212015676352282358
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -67,7 +67,6 @@ public abstract class Ability : MonoBehaviour {
 		
 	IEnumerator CooldownTimer(float duration) {
 		yield return new WaitForSeconds (duration);
-		Debug.Log ("Cooldown timer ending for " + name);
 		onCooldown = false;
 	}
 }

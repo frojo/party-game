@@ -37,7 +37,6 @@ public class PlayerHealthController : MonoBehaviour {
 	}
 
 	public void SetHealth(int numHealth) {
-        Debug.Log("Setting health to " + numHealth);
 		numHealthLeft = numHealth;
 		UpdateHealthText ();
         bar.ResizeBar((float)numHealthLeft / maxHealth);

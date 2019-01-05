@@ -73,7 +73,6 @@ public class Damageable : MonoBehaviour {
 			int damageDealt = being.TakeDamage (damage);
             owner.AddUltCharge(damageDealt);
 			if (knockback) {
-                Debug.Log(owner.name + " does a knockback to " + being.name);
 				Vector2 knockbackDirection = goingRight ? Vector2.right : Vector2.left;
 				being.KnockBack (knockbackDirection, knockbackDistance);
 			}

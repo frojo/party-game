@@ -53,8 +53,6 @@ public class MeleeAttack : Ability {
 		yield return new WaitForSeconds (duration);
 		attack.SetActive(false);
 		attack.transform.parent = transform;
-
-        Debug.Log("Enable attacker's movement");
     }
 
 	int GetDirectionMultiplier(Transform characterTransform) {

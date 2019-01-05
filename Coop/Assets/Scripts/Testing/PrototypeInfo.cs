@@ -14,11 +14,12 @@ public class PrototypeInfo : MonoBehaviour {
 	int nextEnemySPIndex = 0;
     public CharacterConfig testEnemyCharacter;
 
-    // Spawn points for 
-    public Transform firstEnemySpawnPoint;
-    public Transform[] wave2SpawnPoints;
-    int wave2AliveEnemies = 0;
-    public Transform[] wave3SpawnPoints;
+
+    // Wave Configs
+    public WaveConfig wave1;
+    public WaveConfig wave2;
+
+    public WaveConfig[] waves;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +29,7 @@ public class PrototypeInfo : MonoBehaviour {
 
 		SpawnPlayers ();
         //	SpawnEnemies ();
-        // StartDemo();
+        StartDemo();
 		
 	}
 	
@@ -74,56 +75,17 @@ public class PrototypeInfo : MonoBehaviour {
 
 
     void StartDemo() {
-        // Populate wave3SpawnPoints
-        GameObject parent = GameObject.Find("Wave3");
-        int i = 0;
-        foreach (Transform spawnPoint in parent.transform) {
-            wave3SpawnPoints[i] = spawnPoint;
-            i++;
-        }
 
-        SpawnWave3();
+        Debug.Log("Starting demo");
 
+        //wave1.OnWaveDone += wave2.StartWave;
+        //wave1.StartWave();
 
-        // Spawn first enemy and register second wave to start 
-        //GameObject enemy = spawner.SpawnEnemy(firstEnemySpawnPoint, 
-        //                                      testEnemyCharacter);
-        //enemy.GetComponent<BeingController>().OnDied += SpawnWave2;
-
-
-        // TODO: Deregister from the same OnDied function later
-        // When I design the actual WaveTracker thing, I should make sure to do
-        // this for all waves
-    }
-
-
-    public void SpawnWave2() {
-
-        foreach (Transform position in wave2SpawnPoints) {
-            GameObject enemy = spawner.SpawnEnemy(position, testEnemyCharacter);
-            wave2AliveEnemies++;
-            enemy.GetComponent<BeingController>().OnDied += Wave2Death;
-        }
-
-    }
-
-    void Wave2Death() {
-        wave2AliveEnemies--;
-
-        // If we've reached 0 alive enemies, wave is over
-        if (wave2AliveEnemies == 0) {
-            SpawnWave3();
-        }
-    }
-
-    public void SpawnWave3()
-    {
-
-
-        foreach (Transform position in wave3SpawnPoints)
+        for (int i = 0; i < waves.Length - 1; i++)
         {
-            spawner.SpawnEnemy(position, testEnemyCharacter);
+            waves[i].OnWaveDone += waves[i + 1].StartWave;
         }
-
+        waves[0].StartWave();
     }
+
 }
